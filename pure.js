@@ -159,7 +159,7 @@ var pure = (function() {
                     }
 
                     // Set a default name if none was specified.
-                    name = name || "UnamedConstructor";
+                    name = isString(name) && name.length ? name : "UnamedConstructor";
 
                     // If base is a function then we assume it's a constructor
                     // so we read its prototype property.
@@ -176,10 +176,10 @@ var pure = (function() {
                     try {
                         prototype = create(base);
                     } catch (error) {
-                        if (isFunction(base.constructor) && base.constructor.prototype) {
+                        if (isFunction(base.constructor) && isObject(base.constructor.prototype)) {
                             prototype = create(base.constructor.prototype);
                         } else {
-                            prototype = {};//mixin({}, base);
+                            prototype = mixin({}, base);
                         }
                     }
 
