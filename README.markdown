@@ -4,10 +4,10 @@ Purejs
 Functions
 ---------------------
 
-### pure.isString(o)
++ ### pure.isString(o)
 Determines if the specified object is a string literal or a String instance.
 
-### pure.isBoolean(o)
++ ### pure.isBoolean(o)
 Determines if the specified object is a boolean literal or a Boolean instance.
 
 ### pure.isNumber(o)
