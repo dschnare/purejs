@@ -139,6 +139,6 @@ To circumvent this you must provide a converter to the native array type or over
     // This will throw an error.
     //console.log.apply(console, myList);
     // Must convert to a native array first.
-    consoel.log.apply(console, myList.toArray());
+    consoel.log.apply(console, myList.valueOf());
     // However, our list is an Array.
     conole.log(myList instanceof Array && pure.isArray(myList)) // Yep.
