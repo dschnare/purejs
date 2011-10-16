@@ -3,7 +3,6 @@
 // License: MIT ( http://www.opensource.org/licenses/mit-license.php )
 // Repo: https://gist.github.com/1245150
 
-/** @namespace Holds all purejs functions. */
 var pure = (function() {
     var pure, mixin, isString, isBoolean, isNumber, isFunction, isArray, isObject, isDefined, isUndefined, Object, Array;
 
