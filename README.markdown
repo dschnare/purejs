@@ -38,7 +38,7 @@ Here are the goals I had in mind when developing Purejs and how I think I achiev
 
 +   **Offer a more friendly way of using Javascript's prototype system without introducing new ideas.**
 
-    By now all developers are familiar with Crockford's Object.create to create new object instances by extend existing objects. Purejs follows a similar convention:
+    By now all developers are familiar with [Crockford's Object.create](http://javascript.crockford.com/prototypal.html) to create new object instances by extend existing objects. Purejs follows a similar convention:
 
         var MyConstructor = pure.constructor.create({
             init: function() {
