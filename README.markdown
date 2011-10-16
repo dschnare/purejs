@@ -35,6 +35,7 @@ I get it though, even the built-in mechanisms offer clunky support for writing p
 I applaud their efforts at attempting to mitigate these issues, however I still wish they would have stayed true to the language a bit more and refrained from grafting a classical design pattern onto a prototypal language.
 
 Here are the goals I had in mind when developing Purejs and how I think I achieved them:
+
 +   Offer a more friendly way of using Javascript's prototype system without introducing new ideas.
 
     By now all developers are familiar with Crockford's Object.create to create new object instances by extend existing objects. Purejs follows a similar convention:
