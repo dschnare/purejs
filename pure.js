@@ -4,20 +4,23 @@
 // Repo: https://gist.github.com/1245150
 
 var pure = (function() {
-    var pure, mixin, isString, isBoolean, isNumber, isFunction, isArray, isObject, isDefined, isUndefined, Object, Array;
+    var pure, mixin, isString, isBoolean, isNumber, isFunction, isArray, isObject, isDefined, isUndefined, Object, Array, String, Boolean, Number;
 
     Object =({}).constructor;
     Array = ([]).constructor;
+    String = ("").constructor;
+    Boolean = (true).constructor;
+    Number = (4).constructor;
 
     return {
         isString: isString = function(o) {
-            return typeof o === "string";
+            return typeof o === "string" || o instanceof String;
         },
         isBoolean: isBoolean = function(o) {
-            return typeof o === "boolean";
+            return typeof o === "boolean" || o instanceof Boolean;
         },
         isNumber: isNumber = function(o) {
-            return typeof o === "number";
+            return typeof o === "number" || o instanceof Number;
         },
         isFunction: isFunction = function(o) {
             return typeof o === "function";
@@ -34,13 +37,11 @@ var pure = (function() {
         isUndefined: isUndefined = function(o) {
             return o === undefined || o === null;
         },
-        // Will copy all own properties from every non-null, non-undefined object
-        // in the argument list onto the first argument. If the first
-        // argument is undefined or null then a new object is created.
-        // Returns the first argument or the newly create object.
-        //
-        // Note that properties with the same name will be overwritten.
-        //
+        typeOf: function(o) {
+            if (o === null) return "null";
+            if (isArray(o)) return "array";
+            return typeof o;
+        },
         // mixin(...)
         mixin: mixin = function() {
             var i, len = arguments.length, key, arg, o = arguments[0];
@@ -60,30 +61,6 @@ var pure = (function() {
 
             return o;
         },
-        // Will copy all properties from every non-null, non-undefined object
-        // in the argument list onto the first argument. If the first
-        // argument is undefined or null then a new object is created.
-        // Returns the first argument or the newly create object.
-        //
-        // When a property being copied is a function and a property
-        // with the same name is a function on the object being copied
-        // to, then the base version of the function will automatically
-        // be called after the new, overridding version.
-        //
-        // Example:
-        // var a = {sayHi:function(){...}};
-        // var b = {sayHi:function(){...}};
-        // var o = constructor.override(a, b);
-        // // When calling o.sayHi() first b's version will be called,
-        // // then a's version will be called. The return value of the
-        // // o.sayHi() will be equal to the return value of b's version
-        // // because it's the 'overriding' function. Note that 'o' is
-        // // is referentially equal to 'a'.
-        // o.sayHi();
-        //
-        // Note that properties with the same name will be overwritten,
-        // but function properties with the same name will be overriden.
-        //
         // override(...)
         override: function() {
             var member, i, len = arguments.length, key, arg, o = arguments[0];
