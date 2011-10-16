@@ -23,10 +23,10 @@ Determines if the specified object is an array literal, an Array instance, or 'a
 Determines if the specified object is an object. Will return false if the specified object is an array.
 
 ### pure.isDefined(o)
-Determines if the specified object is null or undefined.
+Determines if the specified object is not null and not undefined.
 
 ### pure.isUndefined(o)
-Determines if the specified object is not null and not undefined.
+Determines if the specified object is null or undefined.
 
 ### pure.typeOf(o)
 Retrieves the typeof of the specified object. Returns 'null' if the object is null and returns 'array' if the object is an array. Otherwise returns value of typeof operation on object.
