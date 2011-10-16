@@ -127,9 +127,10 @@ objects are just objects.
     console.log(newFunc instanceof Function) Yes it is, but we can't treat it like one!
 
 **WARNING:** Due to a limitation of the JavaScript language, when attempting to
-use an object created from a constructor based off of Array.prototype as the
+use an object created from a constructor that has a prototype equal to Array.prototype as the
 arguments to Function.prototype.apply, an error will be thrown.
-To circumvent this you must provide a converter to the native array type.
+To circumvent this you must provide a converter to the native array type or uset the built-in
+'valueOf()' method to convert the object to a native-array.
 
 **Example:**
 
