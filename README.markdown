@@ -1,144 +1,126 @@
 Purejs
 ====================
 
-Functions
----------------------
+[Base.js](http://code.google.com/p/base2/source/browse/trunk/src/base2/Base.js) and [Prototype.js](http://www.prototypejs.org/learn/class-inheritance) have their own, [John Resig](http://ejohn.org/blog/simple-javascript-inheritance/) has his own, everyone tends to turn a blind eye on Javascript's prototypal nature by rolling their own classical object model. What these and other approaches tend to have in common is that they require the programmer to make a choice about how they write their code, how they use their code and to think twice about interfacing with non-conforming code or even native "types" (i.e. constructors like String, Object, Date, Array, and Boolean).
 
-### pure.isString(o)
-Determines if the specified object is a string literal or a String instance.
+I get it though, even the built-in mechanisms offer clunky support for writing prototypal driven code.
 
-### pure.isBoolean(o)
-Determines if the specified object is a boolean literal or a Boolean instance.
+    var Base = function(name) {
+      this.name = name + "";
+    };
+    // Having to address the prototype
+    // directly to attach a property is just clunky.
+    Base.prototype.toString = function() {
+      return "Base:" + this.name;
+    };
 
-### pure.isNumber(o)
-Determines if the specified object is a number literal or a Number instance.
+    var Person = function(name) {
+      // No way to call our base constructor
+      // so we have to re-implement it.
+      this.name = name + "";
+    };
+    Person.prototype = new Base();
+    Person.prototype.toString = function() {
+      return "Person:" + Base.prototype.toString.call(this);
+    };
 
-### pure.isFunction(o)
-Determines if the specified object is a function.
+    var person = new Person("Darren");
+    // Alerts 'Person:Base:Darren'.
+    alert(person.toString());
 
-### pure.isArray(o)
-Determines if the specified object is an array literal, an Array instance, or 'array-like' (i.e. has at least a numeric 'length' property, and a 'push' function)
+    // This is really bad since the 'this' object will be the window
+    // and we will be overwriting global variables.
+    // var person = Person("Darren");
 
-### pure.isObject(o)
-Determines if the specified object is an object. Will return false if the specified object is an array.
+I applaud their efforts at attempting to mitigate these issues, however I still wish they would have stayed true to the language a bit more and refrained from grafting a classical design pattern onto a prototypal language.
 
-### pure.isDefined(o)
-Determines if the specified object is not null and not undefined.
+Here are the goals I had in mind when developing Purejs and how I think I achieved them:
++   Offer a more friendly way of using Javascript's prototype system without introducing new ideas.
+    By now all developers are familiar with Crockford's Object.create to create new object instances by extend existing objects. Purejs follows a similar convention:
+        var MyConstructor = pure.constructor.create({
+            init: function() {
+                // ... instance properties
+            },
+            // ... other prototypal properties/methods
+        });
+    Note that I didn't introduce any classical concepts to the language.
++   Must work with both the constructor and functional approach (i.e. constructor approach as in 'new Rect()' and the functional approach as in 'makeRect()').
+        var Rect = pure.constructor.create({
+            init: function(width, height) {
+                this.width = width;
+                this.height = height;
+            },
+            area: function() {
+                return this.width * this.height;
+            }
+        });
+        var makeRect = Rect;
 
-### pure.isUndefined(o)
-Determines if the specified object is null or undefined.
+        // later in code ...
 
-### pure.typeOf(o)
-Retrieves the typeof of the specified object. Returns 'null' if the object is null and returns 'array' if the object is an array. Otherwise returns value of typeof operation on object.
+        var rect = new Rect(10, 10);
 
-### pure.mixin(...)
-Will copy all own-properties from every non-null, non-undefined object
-in the argument list onto the first argument. If the first
-argument is undefined or null then a new object is created.
-Returns the first argument or the newly create object.
+        // a new programmer is introduced on the team
+        // and prefers the functional pattern
+        var rect = makeRect(10, 10);
+        // this also works
+        //var rect = Rect(10, 10);
 
-Note that properties with the same name will be overwritten.
+        // this allows programmers to just think of the problem
+        // domain, not the nuances of JavaScript and whether they
+        // choose to go down the constructor paradigm
+        // or functional paradigm.
++   Must maintain prototype chain such that the results of 'instanceof', 'isPrototypeOf' and 'getPrototypeOf' are predictable and the 'constructor' history is maintained.
+        // From the pure.js file and the example it contains,
+        // all the following statements resolve to true.
 
-### pure.override(...)
-Will copy all properties from every non-null, non-undefined object
-in the argument list onto the first argument. If the first
-argument is undefined or null then a new object is created.
-Returns the first argument or the newly create object.
+        log("person instanceof Base: " + (person instanceof Base));
+        log("person instanceof Person: " + (person instanceof Person));
+        log("Base.prototype.isPrototypeOf(person): " +
+          Base.prototype.isPrototypeOf(person));
+        log("Person.prototype.isPrototypeOf(person): " +
+          Person.prototype.isPrototypeOf(person));
+        if (typeof Object.getPrototypeOf === "function") {
+            log("Object.getPrototypeOf(person) === Person.prototype: " +
+              (Object.getPrototypeOf(person) === Person.prototype));
+        }
+        log("person.constructor === Person: " + (person.constructor === Person));
++   The syntax must be minimal, but comprehensible.
+    This code is magnitudes easier to write and to comprehend than the typical
+    approach to writing prototypal driven code.
+        var MyConstructor = pure.constructor.create({ ... });
++   Must not add ANY overhead or use any ill advised techniques (i.e. no use of properties starting with '_' to mimic privacy, wrapping methods with outer functions, or rely on function decompiling).
+    By inspecting the code of pure.constructor.create you'll notice that there is no overhead introduced by wrapping functions in outer functions, no weird property names assigned on constructors (i.e. no '_' or '$' or anything else), and there is no reliance on function decompiling say for optimization or any other capability.
++   Ideally, offer a technique to call base/super methods without introducing overhead.
+    Depending on how you look at this one you might say Purejs fails this, but in my opinion I think this is one of Purejs' best features because it doesn't bother with introducing any overhead or making any decisions for the programmer about how to access base methods.
+        var Base = pure.constructor.create();
 
-When a property being copied is a function and a property
-with the same name is a function on the object being copied
-to, then the base version of the function will automatically
-be called after the new, overridding version.
+        // Technique one:
+        // compact, provides closure around base prototype,
+        // lets programmer decide what to call 'base',
+        // might not be easily comprehended by beginners
+        var Person = (function(base) {
+            return pure.constructor.create(base, {
+                init: function() {
+                    base.call(this, ...);
+                    // ... continue
+                }
+            });
+        }(Base.prototype));
 
-**Example:**
+        // Technique two:
+        // very compact,
+        // introduces slight overhead when accessing the prototype,
+        // immediately clear what the base prototype is,
+        // might be more familiar to classic programmers
+        var Person = pure.constructor.create(Base, {
+            init: function() {
+                Base.prototype.call(this, ...);
+                // ... continue
+            }
+        });
 
-    var a = {sayHi:function(){...}};
-    var b = {sayHi:function(){...}};
-    var o = constructor.override(a, b);
-    // When calling o.sayHi() first b's version will be called,
-    // then a's version will be called. The return value of the
-    // o.sayHi() will be equal to the return value of b's version
-    // because it's the 'overriding' function. Note that 'o' is
-    // is referentially equal to 'a'.
-    o.sayHi();
-
-Note that properties with the same name will be overwritten,
-but function properties with the same name will be overriden.
-
-### pure.adheresTo(o, interfce)
-Determines if an object adheres to a given interface.
-The interface can be an actual object instance to test against or
-a key-value pair of properties whose values are a string equal to the typeof
-expression that the property should adhere to. If the value is equal to '*'
-then the property can be any type.
-
-Performs a typeof test on each property in the interface and the object.
-If all pass then the object is said to adhere to the interface and returns true,
-otherwise returns false.
-
-If the object and the interface are null or undefined then they are tested
-for strict equality. If the object and the interfce are strictly equal then
-returns true, otherwise returns false.
-
-**Example:**
-
-    pure.adheresTo(o, Object.prototype); // true
-    pure.adheresTo(o, {toString: "function"}); // true
-    pure.adheresTo("", String.prototype); // true
-
-### pure.constructor.create(members)
-### pure.constructor.create(members, name)
-### pure.constructor.create(base, members)
-### pure.constructor.create(base, members, name)
-Creates a new constructor with an optional base prototype
-and an optional constructor name. The name is useful for
-tracing objects during debugging.
-
-Where base can be an object or a constructor, although objects are preferred.
-
-All properties from 'members' will be copied to the newly created
-constructor's prototype.
-
-All constructors created are safeguarded against improper use of
-the 'new' operator, so any constructor can be called with or
-without the 'new' operator.
-
-If the property 'init' exists on the prototype and is a function
-it will be called with the arguments received from the constructor.
-
-**WARNING:** Properties defined in the init() method are not inherited on the prototype
-so they cannot be overridden on the prototype, but instead must be overridden or
-overwritten on the instance.
-
-**WARNING:** Just because a constructor has a prototype equal to Function.prototype does not
-mean the objects it instantiates can be called as functions. The instantiated
-objects are just objects.
-
-**Example:**
-
-    var MyNewFuncType = constructor.create(Function.prototype, { ... });
-    var newFunc = new MyNewFuncType();
-    // All these methods will throw an error when called.
-    newFunc();
-    newFunc.call();
-    newFunc.apply();
-    newFunc.bind()
-    // However, according to 'instanceof' newFunc is a 'Function'.
-    console.log(newFunc instanceof Function) Yes it is, but we can't treat it like one!
-
-**WARNING:** Due to a limitation of the JavaScript language, when attempting to
-use an object created from a constructor that has a prototype equal to Array.prototype as the
-arguments to Function.prototype.apply, an error will be thrown.
-To circumvent this you must provide a converter to the native array type or override the built-in
-'valueOf()' method to convert the object to a native array.
-
-**Example:**
-
-    var List = constructor.create(Array.prototype, { ... list methods ... });
-    var myList = new List(1, 2, 3);
-    // This will throw an error.
-    //console.log.apply(console, myList);
-    // Must convert to a native array first.
-    consoel.log.apply(console, myList.valueOf());
-    // However, our list is an Array.
-    conole.log(myList instanceof Array && pure.isArray(myList)) // Yep.
+        // Your technique:
+        // Will support any number of techniques for calling base members.
++   Ideally, help programmers to think in terms of prototypes.
+    Since the criteria for this goal is subjective by nature, I leave it to you to be the judge.
