@@ -5,10 +5,10 @@ Functions
 ---------------------
 
 ### pure.isString(o)
-> Determines if the specified object is a string literal or a String instance.
+Determines if the specified object is a string literal or a String instance.
 
 ### pure.isBoolean(o)
-> Determines if the specified object is a boolean literal or a Boolean instance.
+Determines if the specified object is a boolean literal or a Boolean instance.
 
 ### pure.isNumber(o)
 Determines if the specified object is a number literal or a Number instance.
