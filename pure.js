@@ -1,7 +1,7 @@
 // Author: Darren Schnare
 // Keywords: javascript,constructor,inheritence,mixin,override,pure,type,testing
 // License: MIT ( http://www.opensource.org/licenses/mit-license.php )
-// Repo: https://gist.github.com/1245150
+// Repo: https://github.com/dschnare/purejs
 
 var pure = (function() {
     var pure, mixin, isString, isBoolean, isNumber, isFunction, isArray, isObject, isDefined, isUndefined, Object, Array, String, Boolean, Number;
@@ -100,21 +100,6 @@ var pure = (function() {
 
             return o;
         },
-        // Determines if an object adheres to a given interface.
-        // The interface can be an actual object instance to test against or
-        // a key-value pair of properties whose values are a string equal to the typeof
-        // expression that the property should adhere to. If the value is equal to '*'
-        // then the property can be any type.
-        //
-        // Performs a typeof test on each property in the interface and the object.
-        // If all pass then the object is said to adhere to the interface and returns true,
-        // otherwise returns false.
-        //
-        // If the object and the interface are null or undefined then they are tested
-        // for strict equality. If the object and the interfce are strictly equal then
-        // returns true, otherwise returns false.
-        //
-        // adheresTo(o, interfce)
         adheresTo: function(o, interfce) {
             var key, typeofo, typeofi;
 
@@ -140,60 +125,10 @@ var pure = (function() {
             return typeofo === typeofi;
         },
         constructor: {
-            // Creates a new constructor with an optional base prototype
-            // and an optional constructor name. The name is useful for
-            // tracing objects during debugging.
-            //
-            // All properties from 'members' will be copied to the newly created
-            // constructor's prototype.
-            //
-            // All constructors created are safeguarded against improper use of
-            // the 'new' operator, so any constructor can be called with or
-            // without the 'new' operator.
-            //
-            // If the property 'init' exists on the prototype and is a function
-            // it will be called with the arguments received from the constructor.
-            //
-            // WARNING: Properties defined in the init() method are not inherited on the prototype
-            // so they cannot be overridden on the prototype, but instead must be overridden or
-            // overwritten on the instance.
-            //
-            // WARNING: Just because a constructor is based on Function.prototype does not
-            // mean the objects it instantiates can be called as functions. The instantiated
-            // objects are just that, objects.
-            //
-            // Example:
-            // var MyNewFuncType = constructor.create(Function.prototype, { ... });
-            // var newFunc = new MyNewFuncType();
-            // // All these methods will throw an error when called.
-            // newFunc();
-            // newFunc.call();
-            // newFunc.apply();
-            // newFunc.bind()
-            // // However, according to 'instanceof' newFunc is a 'Function'.
-            // console.log(newFunc instanceof Function) // Yes it is, but we can't treat it like one!
-            //
-            // WARNING: Due to a limitation of the JavaScript language, when attempting to
-            // use an object created from a constructor based off of Array.prototype as the
-            // arguments to Function.prototype.apply, an error will be thrown.
-            // To circumvent this you must provide a converter to the native array type.
-            //
-            // Example:
-            // var List = constructor.create(Array.prototype, { ... list methods ... });
-            // var myList = new List(1, 2, 3);
-            // // This will throw an error.
-            // //console.log.apply(console, myList);
-            // // Must convert to a native array first
-            // consoel.log.apply(console, myList.toArray());
-            // // However, our list is an Array
-            // conole.log(myList instanceof Array) // Yep.
-            //
             // create(members)
             // create(members, name)
             // create(base, members)
             // create(base, members, name)
-            //
-            // Where base can be an object or a constructor, although objects are preferred.
             create: (function() {
                 var CREATION_SCRIPT, create;
 
