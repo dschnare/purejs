@@ -129,7 +129,7 @@ objects are just objects.
 **WARNING:** Due to a limitation of the JavaScript language, when attempting to
 use an object created from a constructor that has a prototype equal to Array.prototype as the
 arguments to Function.prototype.apply, an error will be thrown.
-To circumvent this you must provide a converter to the native array type or use the built-in
+To circumvent this you must provide a converter to the native array type or override the built-in
 'valueOf()' method to convert the object to a native array.
 
 **Example:**
