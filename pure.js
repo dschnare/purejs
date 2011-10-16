@@ -4,6 +4,8 @@
 // Repo: https://github.com/dschnare/purejs
 
 var pure = (function() {
+    "use strict";
+
     var pure, mixin, isString, isBoolean, isNumber, isFunction, isArray, isObject, isDefined, isUndefined, Object, Array, String, Boolean, Number;
 
     Object =({}).constructor;
