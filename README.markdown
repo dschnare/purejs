@@ -19,6 +19,10 @@ The `src/pure.js` file is the source file with inline commenting, and the `pure-
 To install simply download one of the files above and include them via a `<script>` element.
 
 
+
+Overview
+--------------------
+
 [Base.js](http://code.google.com/p/base2/source/browse/trunk/src/base2/Base.js) and [Prototype.js](http://www.prototypejs.org/learn/class-inheritance) have their own, [John Resig](http://ejohn.org/blog/simple-javascript-inheritance/) has his own, everyone tends to turn a blind eye on Javascript's prototypal nature by rolling their own classical object model. What these and other approaches tend to have in common is that they require the programmer to make a choice about how they write their code, how they use their code and to think twice about interfacing with non-conforming code or even native "types" (i.e. constructors like String, Object, Date, Array, and Boolean).
 
 I get it though, even the built-in mechanisms offer clunky support for writing prototypal driven code.
