@@ -129,6 +129,8 @@ var pure = (function() {
             return typeofo === typeofi;
         },
         constructor: {
+            // create()
+            // create(name)
             // create(members)
             // create(members, name)
             // create(base, members)
@@ -149,9 +151,18 @@ var pure = (function() {
                 return function(base, members, name) {
                     var prototype, ctr, hasInit, createInstance;
 
-                    if (arguments.length === 1) {
-                        members = base;
+                    if (arguments.length === 0) {
+                        members = {};
                         base = {};
+                    } else if (arguments.length === 1) {
+                        if (typeof base === "string") {
+                            name = base;
+                            members = {};
+                            base = {};
+                        } else {
+                            members = base;
+                            base = {};
+                        }
                     } else if (arguments.length === 2) {
                         if (isString(arguments[1])) {
                             name = members;
@@ -163,7 +174,7 @@ var pure = (function() {
                     }
 
                     // Set a default name if none was specified.
-                    name = isString(name) && name.length ? name : "UnamedConstructor";
+                    name = isString(name) && name.length ? name : "UnnamedConstructor";
 
                     // If base is a function then we assume it's a constructor
                     // so we read its prototype property.

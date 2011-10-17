@@ -2,7 +2,7 @@ var window;
 window = window || {};
 
 (function(pure, unit) {
-    unit.makeTestSuite("Override Tests Test Suite", {
+    unit.makeTestSuite("Override Test Suite", {
             setupOwnPropertyTest: function() {
                 function create(o) {
                     function F() {}
@@ -71,19 +71,23 @@ window = window || {};
                 }
             });
 
-            var msg = o.hello() + o.world();
+            msg = "";
+            o.hello();
+            o.world();
 
-            unit.expect("msg to be equal to ' helloworld'.", msg === "hello world");
+            unit.expect("msg to be equal to ' helloworld'.", msg === " helloworld");
 
             o = pure.override({
                 hello: function() {
-                    return "Hello ";
+                    msg += " how are you ";
                 }
             }, a);
 
-            msg = o.hello() + o.world();
+            msg = "";
+            o.hello();
+            o.world();
 
-            unit.expect("msg to be equal to 'hello world'.", msg === "Hello world");
+            unit.expect("msg to be equal to 'hello how are you world'.", msg === "hello how are you world");
         }
     }).run();
 }(window.pure, window.unit));

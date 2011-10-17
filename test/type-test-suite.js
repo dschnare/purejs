@@ -2,7 +2,7 @@ var window;
 window = window || {};
 
 (function(pure, unit) {
-    unit.makeTestSuite("Type Tests Test Suite", {
+    unit.makeTestSuite("Type Test Suite", {
         isStringTest: function() {
             unit.expect("string literal to be a string.", pure.isString("some string literal"));
             unit.expect("string object to be a string.", pure.isString(new String("some string literal")));
