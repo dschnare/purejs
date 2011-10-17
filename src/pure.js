@@ -48,7 +48,7 @@ var pure = (function() {
         mixin: mixin = function() {
             var i, len = arguments.length, key, arg, o = arguments[0];
 
-            if (len === 0) return undefined;
+            if (len === 0) return {};
             if (o === null || o === undefined) o = {};
 
             for (i = 1; i < len; i++) {
@@ -67,7 +67,7 @@ var pure = (function() {
         override: function() {
             var member, i, len = arguments.length, key, arg, o = arguments[0];
 
-            if (len === 0) return undefined;
+            if (len === 0) return {};
             if (o === null || o === undefined) o = {};
 
             for (i = 1; i < len; i++) {
@@ -78,10 +78,12 @@ var pure = (function() {
                 for (key in arg) {
                     member = arg[key];
 
+                    if (!arg.hasOwnProperty(key)) continue;
+
                     if (isFunction(member) && isFunction(o[key])) {
                         o[key] = (function(fn, baseFn) {
                             return function() {
-                                var r;
+                                var r = undefined;
 
                                 if (arguments.length) {
                                     r = fn.apply(this, arguments);
