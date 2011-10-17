@@ -71,7 +71,7 @@ Here are the goals I had in mind when developing Purejs and how I think I achiev
 
     Note that I didn't introduce any classical concepts to the language.
 
-+   **Must work with both the constructor and functional approach (i.e. constructor approach as in 'new Rect()' and the functional approach as in 'makeRect()').**
++   **Must work with both the constructor and functional approach (i.e. constructor approach as in `new Rect()` and the functional approach as in `makeRect()`).**
 
         var Rect = pure.constructor.create({
             init: function(width, height) {
@@ -99,7 +99,7 @@ Here are the goals I had in mind when developing Purejs and how I think I achiev
         // choose to go down the constructor paradigm
         // or functional paradigm.
 
-+   **Must maintain prototype chain such that the results of 'instanceof', 'isPrototypeOf' and 'getPrototypeOf' are predictable and the 'constructor' history is maintained.**
++   **Must maintain prototype chain such that the results of `instanceof`, `isPrototypeOf` and `getPrototypeOf` are predictable and the `constructor` history is maintained.**
 
         // From the pure.js file and the example it contains,
         // all the following statements resolve to true.
@@ -125,7 +125,7 @@ Here are the goals I had in mind when developing Purejs and how I think I achiev
 
 +   **Must not add ANY overhead or use any ill advised techniques (i.e. no use of properties starting with '_' to mimic privacy, wrapping methods with outer functions, or rely on function decompiling).**
 
-    By inspecting the code of pure.constructor.create you'll notice that there is no overhead introduced by wrapping functions in outer functions, no weird property names assigned on constructors (i.e. no '_' or '$' or anything else), and there is no reliance on function decompiling say for optimization or any other capability.
+    By inspecting the code of `pure.constructor.create` you'll notice that there is no overhead introduced by wrapping functions in outer functions, no weird property names assigned on constructors (i.e. no '_' or '$' or anything else), and there is no reliance on function decompiling say for optimization or any other capability.
 
 +   **Ideally, offer a technique to call base/super methods without introducing overhead.**
 
