@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<root>
+	<symbol name="pure" type="object">
+		<symbol name="pure.isString" type="function"/>
+		<symbol name="pure.isBoolean" type="function"/>
+		<symbol name="pure.isNumber" type="function"/>
+		<symbol name="pure.isFunction" type="function"/>
+		<symbol name="pure.isArray" type="function"/>
+		<symbol name="pure.isObject" type="function"/>
+		<symbol name="pure.isDefined" type="function"/>
+		<symbol name="pure.isUndefined" type="function"/>
+		<symbol name="pure.typeOf" type="function"/>
+		<symbol name="pure.mixin" type="function"/>
+		<symbol name="pure.override" type="function"/>
+		<symbol name="pure.adheresTo" type="function"/>
+		<symbol name="pure.constructor" type="object">
+			<symbol name="pure.constructor.create" type="function"/>
+		</symbol>
+	</symbol>
+</root>

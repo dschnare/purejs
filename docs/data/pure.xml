@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<root>
+	<symbol name="pure" type="object">
+		<summary>Holds all functions for the purejs namespace.</summary>
+		<symbols>
+			<symbol name="pure.isString" type="function">
+				<summary>Determines if the specified object is a string literal or a String instance.</summary>
+				<param name="o" prototype="Object">The object to test.</param>
+			</symbol>
+			<symbol name="pure.isBoolean" type="function">
+				<summary>Determines if the specified object is a boolean literal or a Boolean instance.</summary>
+				<param name="o" prototype="Object">The object to test.</param>
+			</symbol>
+			<symbol name="pure.isNumber" type="function">
+				<summary>Determines if the specified object is a number literal or a Number instance.</summary>
+				<param name="o" prototype="Object">The object to test.</param>
+			</symbol>
+			<symbol name="pure.isFunction" type="function">
+				<summary>Determines if the specified object is a function.</summary>
+				<param name="o" prototype="Object">The object to test.</param>
+			</symbol>
+			<symbol name="pure.isArray" type="function">
+				<summary>Determines if the specified object is an array literal, an Array instance, or 'array-like' (i.e. has at least a numeric 'length' property, and a 'push' function)</summary>
+				<param name="o" prototype="Object">The object to test.</param>
+			</symbol>
+			<symbol name="pure.isObject" type="function">
+				<summary>Determines if the specified object is an object. Will return false if the specified object is an array.</summary>
+				<param name="o" prototype="Object">The object to test.</param>
+			</symbol>
+			<symbol name="pure.isDefined" type="function">
+				<summary>Determines if the specified object is not null and not undefined.</summary>
+				<param name="o" prototype="Object">The object to test.</param>
+			</symbol>
+			<symbol name="pure.isUndefined" type="function">
+				<summary>Determines if the specified object is null or undefined.</summary>
+				<param name="o" prototype="Object">The object to test.</param>
+			</symbol>
+			<symbol name="pure.typeOf" type="function">
+				<summary>Retrieves the typeof of the specified object. Returns 'null' if the object is null and returns 'array' if the object is an array. Otherwise returns value of typeof operation on object.</summary>
+				<param name="o" prototype="Object">The object to retrieve its native type name.</param>
+			</symbol>
+			<symbol name="pure.mixin" type="function">
+				<summary>
+					<p>Will copy all own-properties from every non-null, non-undefined object
+					in the argument list onto the first argument. If the first
+					argument is undefined or null then a new object is created.
+					Returns the first argument or the newly create object.</p>
+
+					<p>Note that properties with the same name will be overwritten.</p>
+				</summary>
+				<vparam>The objects to have their properties mixed together.</vparam>
+			</symbol>
+			<symbol name="pure.override" type="function">
+				<summary>
+					<p>Will copy all properties from every non-null, non-undefined object
+					in the argument list onto the first argument. If the first
+					argument is undefined or null then a new object is created.
+					Returns the first argument or the newly create object.</p>
+
+					<p>When a property being copied is a function and a property
+					with the same name is a function on the object being copied
+					to, then the base version of the function will automatically
+					be called after the new, overridding version.</p>
+
+					<p><strong>Example:</strong></p>
+					<pre><code><![CDATA[var a = {sayHi:function(){...}};
+var b = {sayHi:function(){...}};
+var o = constructor.override(a, b);
+// When calling o.sayHi() first b's version will be called,
+// then a's version will be called. The return value of the
+// o.sayHi() will be equal to the return value of b's version
+// because it's the 'overriding' function. Note that 'o' is
+// is referentially equal to 'a'.
+o.sayHi();]]></code></pre>
+
+					<p>Note that properties with the same name will be overwritten,
+					but function properties with the same name will be overriden.</p>
+				</summary>
+				<vparam>The objects to have their properties mixed together.</vparam>
+			</symbol>
+			<symbol name="pure.adheresTo" type="function">
+				<summary>
+					<p>Determines if an object adheres to a given interface.
+					The interface can be an actual object instance to test against or
+					a key-value pair of properties whose values are a string equal to the typeof
+					expression that the property should adhere to. If the value is equal to '*'
+					then the property can be any type.</p>
+
+					<p>Performs a typeof test on each property in the interface and the object.
+					If all pass then the object is said to adhere to the interface and returns true,
+					otherwise returns false.</p>
+
+					<p>If the object and the interface are null or undefined then they are tested
+					for strict equality. If the object and the interfce are strictly equal then
+					returns true, otherwise returns false.</p>
+
+					<p><strong>Example:</strong></p>
+					<pre><code><![CDATA[pure.adheresTo(o, Object.prototype); // true
+pure.adheresTo(o, {toString: "function"}); // true
+pure.adheresTo("", String.prototype); // true]]></code></pre>
+				</summary>
+				<param name="o" prototype="Object">The object to have tested.</param>
+				<param name="interfce" prototype="Object">The interface object (i.e. the protoytpe) to test against.</param>
+			</symbol>
+			<symbol name="pure.constructor" type="object">
+				<symbols>
+					<symbol name="pure.constructor.create" type="function"/>
+					<symbol name="pure.constructor.create" type="function">
+						<param name="name" prototype="String">The name of the constructor.</param>
+					</symbol>
+					<symbol name="pure.constructor.create" type="function">
+						<param name="members" prototype="Object">The members to place on the constructor's prototype.</param>
+					</symbol>
+					<symbol name="pure.constructor.create" type="function">
+						<param name="base" prototype="Object">The prototype to base the new constructor's prototype on.</param>
+						<param name="members" prototype="Object">The members to place on the constructor's prototype.</param>
+					</symbol>
+					<symbol name="pure.constructor.create" type="function">
+						<param name="base" prototype="Function">The constructor whose prototype will be the base for the new constructor's prototype on.</param>
+						<param name="members" prototype="Object">The members to place on the constructor's prototype.</param>
+					</symbol>
+					<symbol name="pure.constructor.create" type="function">
+						<param name="base" prototype="Object">The prototype to base the new constructor's prototype on.</param>
+						<param name="members" prototype="Object">The members to place on the constructor's prototype.</param>
+						<param name="name" prototype="String">The name of the constructor.</param>
+					</symbol>
+					<symbol name="pure.constructor.create" type="function">
+						<summary>
+							<p>Creates a new constructor with an optional base prototype
+							and an optional constructor name. The name is useful for
+							tracing objects during debugging.</p>
+
+							<p>Where base can be an object or a constructor, although objects are preferred.</p>
+
+							<p>All properties from 'members' will be copied to the newly created
+							constructor's prototype.</p>
+
+							<p>All constructors created are safeguarded against improper use of
+							the 'new' operator, so any constructor can be called with or
+							without the 'new' operator.</p>
+
+							<p>If the property 'init' exists on the prototype and is a function
+							it will be called with the arguments received from the constructor.</p>
+
+							<p><strong>WARNING:</strong> Properties defined in the init() method are not inherited on the prototype
+							so they cannot be overridden on the prototype, but instead must be overridden or
+							overwritten on the instance.</p>
+
+							<p><strong>WARNING:</strong> Just because a constructor has a prototype equal to Function.prototype does not
+							mean the objects it instantiates can be called as functions. The instantiated
+							objects are just objects.</p>
+
+							<p><strong>Example:</strong></p>
+							<pre><code><![CDATA[var MyNewFuncType = constructor.create(Function.prototype, { ... });
+var newFunc = new MyNewFuncType();
+// All these methods will throw an error when called.
+newFunc();
+newFunc.call();
+newFunc.apply();
+newFunc.bind()
+// However, according to 'instanceof' newFunc is a 'Function'.
+console.log(newFunc instanceof Function) Yes it is, but we can't treat it like one!]]></code></pre>
+
+							<p><strong>WARNING:</strong> Due to a limitation of the JavaScript language, when attempting to
+							use an object created from a constructor that has a prototype equal to Array.prototype as the
+							arguments to Function.prototype.apply, an error will be thrown.
+							To circumvent this you must provide a converter to the native array type or override the built-in
+							'valueOf()' method to convert the object to a native array.</p>
+
+							<p><strong>Example:</strong></p>
+							<pre><code><![CDATA[var List = constructor.create(Array.prototype, { ... list methods ... });
+var myList = new List(1, 2, 3);
+// This will throw an error.
+//console.log.apply(console, myList);
+// Must convert to a native array first.
+consoel.log.apply(console, myList.valueOf());
+// However, our list is an Array.
+conole.log(myList instanceof Array && pure.isArray(myList)) // Yep.]]></code></pre>
+						</summary>
+						<param name="base" prototype="Function">The constructor whose prototype will be the base for the new constructor's prototype on.</param>
+						<param name="members" prototype="Object">The members to place on the constructor's prototype.</param>
+						<param name="name" prototype="String">The name of the constructor.</param>
+					</symbol>
+				</symbols>
+			</symbol>
+		</symbols>
+	</symbol>
+</root>
