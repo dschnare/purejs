@@ -1,43 +1,62 @@
 <?xml version="1.0"?>
 <root>
-	<symbol name="pure" type="object">
+	<symbol name="pure" type="object" prototype="Object">
 		<summary>Holds all functions for the purejs namespace.</summary>
+
 		<symbols>
 			<symbol name="pure.isString" type="function">
 				<summary>Determines if the specified object is a string literal or a String instance.</summary>
-				<param name="o" prototype="Object">The object to test.</param>
+				<param name="o" prototype="Object">
+					<summary>The object to test.</summary>
+				</param>
 			</symbol>
 			<symbol name="pure.isBoolean" type="function">
 				<summary>Determines if the specified object is a boolean literal or a Boolean instance.</summary>
-				<param name="o" prototype="Object">The object to test.</param>
+				<param name="o" prototype="Object">
+					<summary>The object to test.</summary>
+				</param>
 			</symbol>
 			<symbol name="pure.isNumber" type="function">
 				<summary>Determines if the specified object is a number literal or a Number instance.</summary>
-				<param name="o" prototype="Object">The object to test.</param>
+				<param name="o" prototype="Object">
+					<summary>The object to test.</summary>
+				</param>
 			</symbol>
 			<symbol name="pure.isFunction" type="function">
 				<summary>Determines if the specified object is a function.</summary>
-				<param name="o" prototype="Object">The object to test.</param>
+				<param name="o" prototype="Object">
+					<summary>The object to test.</summary>
+				</param>
 			</symbol>
 			<symbol name="pure.isArray" type="function">
 				<summary>Determines if the specified object is an array literal, an Array instance, or 'array-like' (i.e. has at least a numeric 'length' property, and a 'push' function)</summary>
-				<param name="o" prototype="Object">The object to test.</param>
+				<param name="o" prototype="Object">
+					<summary>The object to test.</summary>
+				</param>
 			</symbol>
 			<symbol name="pure.isObject" type="function">
 				<summary>Determines if the specified object is an object. Will return false if the specified object is an array.</summary>
-				<param name="o" prototype="Object">The object to test.</param>
+				<param name="o" prototype="Object">
+					<summary>The object to test.</summary>
+				</param>
 			</symbol>
 			<symbol name="pure.isDefined" type="function">
 				<summary>Determines if the specified object is not null and not undefined.</summary>
-				<param name="o" prototype="Object">The object to test.</param>
+				<param name="o" prototype="Object">
+					<summary>The object to test.</summary>
+				</param>
 			</symbol>
 			<symbol name="pure.isUndefined" type="function">
 				<summary>Determines if the specified object is null or undefined.</summary>
-				<param name="o" prototype="Object">The object to test.</param>
+				<param name="o" prototype="Object">
+					<summary>The object to test.</summary>
+				</param>
 			</symbol>
 			<symbol name="pure.typeOf" type="function">
 				<summary>Retrieves the typeof of the specified object. Returns 'null' if the object is null and returns 'array' if the object is an array. Otherwise returns value of typeof operation on object.</summary>
-				<param name="o" prototype="Object">The object to retrieve its native type name.</param>
+				<param name="o" prototype="Object">
+					<summary>The object to retrieve its native type name.</summary>
+				</param>
 			</symbol>
 			<symbol name="pure.mixin" type="function">
 				<summary>
@@ -48,7 +67,9 @@
 
 					<p>Note that properties with the same name will be overwritten.</p>
 				</summary>
-				<vparam>The objects to have their properties mixed together.</vparam>
+				<vparam prototype="Object">
+					<summary>The objects to have their properties mixed together.</summary>
+				</vparam>
 			</symbol>
 			<symbol name="pure.override" type="function">
 				<summary>
@@ -76,7 +97,9 @@ o.sayHi();]]></code></pre>
 					<p>Note that properties with the same name will be overwritten,
 					but function properties with the same name will be overriden.</p>
 				</summary>
-				<vparam>The objects to have their properties mixed together.</vparam>
+				<vparam prototype="Object">
+					<summary>The objects to have their properties mixed together.</summary>
+				</vparam>
 			</symbol>
 			<symbol name="pure.adheresTo" type="function">
 				<summary>
@@ -99,30 +122,54 @@ o.sayHi();]]></code></pre>
 pure.adheresTo(o, {toString: "function"}); // true
 pure.adheresTo("", String.prototype); // true]]></code></pre>
 				</summary>
-				<param name="o" prototype="Object">The object to have tested.</param>
-				<param name="interfce" prototype="Object">The interface object (i.e. the protoytpe) to test against.</param>
+				<param name="o" prototype="Object">
+					<summary>The object to have tested.</summary>
+				</param>
+				<param name="interfce" prototype="Object">
+					<summary>The interface object (i.e. the protoytpe) to test against.</summary>
+				</param>
 			</symbol>
 			<symbol name="pure.constructor" type="object">
 				<symbols>
 					<symbol name="pure.constructor.create" type="function"/>
 					<symbol name="pure.constructor.create" type="function">
-						<param name="name" prototype="String">The name of the constructor.</param>
+						<param name="name" prototype="Object">
+							<summary>The name of the constructor.</summary>
+							<augment>String.prototype</augment>
+						</param>
 					</symbol>
 					<symbol name="pure.constructor.create" type="function">
-						<param name="members" prototype="Object">The members to place on the constructor's prototype.</param>
+						<param name="members" prototype="Object">
+							<summary>The members to place on the constructor's prototype.</summary>
+						</param>
 					</symbol>
 					<symbol name="pure.constructor.create" type="function">
-						<param name="base" prototype="Object">The prototype to base the new constructor's prototype on.</param>
-						<param name="members" prototype="Object">The members to place on the constructor's prototype.</param>
+						<param name="base" prototype="Object">
+							<summary>The prototype to base the new constructor's prototype on.</summary>
+						</param>
+						<param name="members" prototype="Object">
+							<summary>The members to place on the constructor's prototype.</summary>
+						</param>
 					</symbol>
 					<symbol name="pure.constructor.create" type="function">
-						<param name="base" prototype="Function">The constructor whose prototype will be the base for the new constructor's prototype on.</param>
-						<param name="members" prototype="Object">The members to place on the constructor's prototype.</param>
+						<param name="base" prototype="Function">
+							<summary>The constructor whose prototype will be the base for the new constructor's prototype on.</summary>
+						</param>
+						<param name="members" prototype="Object">
+							<summary>The members to place on the constructor's prototype.</summary>
+						</param>
 					</symbol>
 					<symbol name="pure.constructor.create" type="function">
-						<param name="base" prototype="Object">The prototype to base the new constructor's prototype on.</param>
-						<param name="members" prototype="Object">The members to place on the constructor's prototype.</param>
-						<param name="name" prototype="String">The name of the constructor.</param>
+						<param name="base" prototype="Object">
+							<summary>The prototype to base the new constructor's prototype on.</summary>
+						</param>
+						<param name="members" prototype="Object">
+							<summary>The members to place on the constructor's prototype.</summary>
+						</param>
+						<param name="name" prototype="Object">
+							<summary>The name of the constructor.</summary>
+							<augment>String.prototype</augment>
+						</param>
 					</symbol>
 					<symbol name="pure.constructor.create" type="function">
 						<summary>
@@ -177,9 +224,16 @@ consoel.log.apply(console, myList.valueOf());
 // However, our list is an Array.
 conole.log(myList instanceof Array && pure.isArray(myList)) // Yep.]]></code></pre>
 						</summary>
-						<param name="base" prototype="Function">The constructor whose prototype will be the base for the new constructor's prototype on.</param>
-						<param name="members" prototype="Object">The members to place on the constructor's prototype.</param>
-						<param name="name" prototype="String">The name of the constructor.</param>
+						<param name="base" prototype="Function">
+							<summary>The constructor whose prototype will be the base for the new constructor's prototype on.</summary>
+						</param>
+						<param name="members" prototype="Object">
+							<summary>The members to place on the constructor's prototype.</summary>
+						</param>
+						<param name="name" prototype="Object">
+							<summary>The name of the constructor.</summary>
+							<augment>String.prototype</augment>
+						</param>
 					</symbol>
 				</symbols>
 			</symbol>
