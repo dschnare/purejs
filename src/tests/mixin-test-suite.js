@@ -1,6 +1,3 @@
-var window;
-window = window || {};
-
 (function(pure, unit) {
     unit.makeTestSuite("Mixin Test Suite", {
             setupOwnPropertyTest: function() {

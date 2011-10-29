@@ -1,6 +1,3 @@
-var window;
-window = window || {};
-
 (function(pure, unit) {
     unit.makeTestSuite("Override Test Suite", {
             setupOwnPropertyTest: function() {

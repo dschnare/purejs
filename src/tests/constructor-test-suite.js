@@ -1,7 +1,4 @@
-var window;
-window = window || {};
-
-var name = (function(pure, unit) {
+(function(pure, unit) {
     unit.makeTestSuite("Constructor Test Suite", {
         emptyConstructorTest: function() {
             var ctr = pure.constructor.create();

@@ -1,7 +1,4 @@
-var window;
-window = window || {};
-
-var name = (function(pure, unit) {
+(function(pure, unit) {
     unit.makeTestSuite("AdheresTo Test Suite", {
         wildCardAdheresToTest: function() {
             unit.expect("object to adhereTo {age: '*'}.", pure.adheresTo({age: 23}, {age: "*"}));
