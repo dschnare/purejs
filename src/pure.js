@@ -6,7 +6,8 @@
 var pure = (function() {
     "use strict";
 
-    var pure, mixin, isString, isBoolean, isNumber, isFunction, isArray, isObject, isDefined, isUndefined, Object, Array, String, Boolean, Number;
+    var pure, mixin, isString, isBoolean, isNumber, isFunction, isArray,
+        isObject, isDefined, isUndefined, Object, Array, String, Boolean, Number;
 
     Object =({}).constructor;
     Array = ([]).constructor;
@@ -149,7 +150,7 @@ var pure = (function() {
                 };
 
                 return function(base, members, name) {
-                    var prototype, ctr, hasInit, createInstance;
+                    var prototype, ctr, createInstance;
 
                     if (arguments.length === 0) {
                         members = {};
@@ -207,14 +208,24 @@ var pure = (function() {
 
                     ctr = function() {
                         // Create a new instance inheriting from our prototype.
-                        var o = createInstance(prototype);
+                        var o = createInstance(ctr.prototype);
 
                         // Ensure we have the proper constructor history.
                         o.constructor = ctr;
 
+                        // Trigger the copy contructor if we received a single
+                        // argument that is an instance of our constructor and
+                        // the copy() method exists. Then return the object.
+                        if (arguments.length === 1 &&
+                            arguments[0] instanceof ctr &&
+                            typeof o.copy === "function") {
+                            o.copy(arguments[0]);
+                            return o;
+                        }
+
                         // If we have an init() method then we call it with
                         // the arguments we received from the constructor.
-                        if (hasInit) {
+                        if (typeof o.init === "function") {
                             if (arguments.length) {
                                 o.init.apply(o, arguments);
                             } else {
@@ -237,8 +248,6 @@ var pure = (function() {
 
                     // Mixin all properties from members onto our prototype.
                     mixin(prototype, members);
-
-                    hasInit = isFunction(prototype.init);
 
                     // Assign our prototype and
                     // return our constructor

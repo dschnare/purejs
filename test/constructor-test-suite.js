@@ -38,6 +38,41 @@
 
             unit.expect("ctr.getName() equal to 'CTR'.", ctr.getName() === "CTR");
         },
+        copyConstructorTest: function() {
+            var ctr = pure.constructor.create({
+                copy: function(other) {
+                    this.copyCalled = true;
+                    this.init();
+                },
+                init: function() {
+                    this.initCalled = true;
+                },
+                helloWorld: function() {
+                    return "Hello World";
+                }
+            }, "CTR");
+            var a = new ctr();
+            var b = a.constructor(a);
+
+            unit.dontExpect("a to be identical to b.", a === b);
+            unit.expect("a.initCalled to be true.", a.initCalled == true);
+            unit.dontExpect("a.copyCalled to be true.", a.copyCalled == true);
+            unit.expect("b.initCalled to be true.", b.initCalled == true);
+            unit.expect("b.copyCalled to be true.", b.copyCalled == true);
+
+            unit.expect("a to be an instance of ctr.", a instanceof ctr);
+            unit.expect("b to be an instance of ctr.", b instanceof ctr);
+            if (typeof Object.prototype.isPrototypeOf === "function") {
+                unit.expect("ctr.prototype is a prototype of a.", ctr.prototype.isPrototypeOf(a));
+                unit.expect("ctr.prototype is a prototype of b.", ctr.prototype.isPrototypeOf(b));
+            }
+            if (typeof Object.getPrototypeOf === "function") {
+                unit.expect("prototype of a is equal to ctr.prototype.", Object.getPrototypeOf(a) === ctr.prototype);
+                unit.expect("prototype of b is equal to ctr.prototype.", Object.getPrototypeOf(b) === ctr.prototype);
+            }
+
+            unit.expect("ctr.getName() equal to 'CTR'.", ctr.getName() === "CTR");
+        },
         membersTest: function() {
             var initCalled = false;
             var ctr = pure.constructor.create({
