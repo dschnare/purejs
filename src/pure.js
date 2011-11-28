@@ -34,7 +34,7 @@ var pure = (function() {
             return o instanceof Array || ({}).toString.call(o) === "[object Array]" || (isDefined(o) && isNumber(o.length) && isFunction(o.push));
         },
         isObject: isObject = function(o) {
-            return o && typeof o === "object" && !isArray(o);
+            return o && typeof o === "object";
         },
         isDefined: isDefined = function(o) {
             return o !== null && o !== undefined;

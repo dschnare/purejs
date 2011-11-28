@@ -71,11 +71,13 @@
             unit.expect("number object to be an object.", pure.isObject(new Number(4)));
             unit.expect("string object to be an object.", pure.isObject(new String("4")));
             unit.expect("boolean object to be an object.", pure.isObject(new Boolean(false)));
-            unit.dontExpect("number literal to be an object.", pure.isObject([1,2,3]));
-            unit.dontExpect("array literal to be an object.", pure.isObject([1,2,3]));
-            unit.dontExpect("array object to be an object.", pure.isObject(new Array(3)));
-            unit.dontExpect("array-like object to be an object.", pure.isObject(this.arrayLikeObject));
-            unit.dontExpect("extended array object to be an object.", pure.isObject(this.extendedArrayObject));
+			unit.expect("array literal to be an object.", pure.isObject([1,2,3]));
+			unit.expect("array object to be an object.", pure.isObject(new Array(3)));
+			unit.expect("extended array object to be an object.", pure.isObject(this.extendedArrayObject));
+			unit.expect("array-like object to be an object.", pure.isObject(this.arrayLikeObject));
+            unit.dontExpect("number literal to be an object.", pure.isObject(1));
+			unit.dontExpect("string literal to be an object.", pure.isObject("1"));
+			unit.dontExpect("boolean literal to be an object.", pure.isObject(false));
         },
             destroyIsObjectTest: function() {
                 this.destroyIsArrayTest();
