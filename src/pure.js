@@ -1,7 +1,7 @@
 /*!
  * Author: Darren Schnare
  * Version: 1.0
- * Keywords: javascript,constructor,inheritence,mixin,override,pure,type,testing
+ * Keywords: javascript,constructor,inheritence,mixin,pure,type,testing
  * License: MIT ( http://www.opensource.org/licenses/mit-license.php )
  * Repo: https://github.com/dschnare/purejs
  */
@@ -61,47 +61,6 @@ var pure = (function() {
 
                 for (key in arg) {
                     if (arg.hasOwnProperty(key)) o[key] = arg[key];
-                }
-            }
-
-            return o;
-        },
-        // override(...)
-        override: function() {
-            var member, i, len = arguments.length, key, arg, o = arguments[0];
-
-            if (len === 0) return {};
-            if (o === null || o === undefined) o = {};
-
-            for (i = 1; i < len; i++) {
-                arg = arguments[i];
-
-                if (arg === null || arg === undefined) continue;
-
-                for (key in arg) {
-                    member = arg[key];
-
-                    if (!arg.hasOwnProperty(key)) continue;
-
-                    if (isFunction(member) && isFunction(o[key])) {
-                        o[key] = (function(fn, baseFn) {
-                            return function() {
-                                var r = undefined;
-
-                                if (arguments.length) {
-                                    r = fn.apply(this, arguments);
-                                    baseFn.apply(this, arguments);
-                                } else {
-                                    r = fn.call(this);
-                                    baseFn.call(this);
-                                }
-
-                                return r;
-                            };
-                        }(member, o[key]));
-                    } else {
-                        o[key] = member;
-                    }
                 }
             }
 
