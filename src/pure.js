@@ -1,8 +1,10 @@
-// Author: Darren Schnare
-// Keywords: javascript,constructor,inheritence,mixin,override,pure,type,testing
-// License: MIT ( http://www.opensource.org/licenses/mit-license.php )
-// Repo: https://github.com/dschnare/purejs
-
+/*!
+ * Author: Darren Schnare
+ * Version: 1.0
+ * Keywords: javascript,constructor,inheritence,mixin,override,pure,type,testing
+ * License: MIT ( http://www.opensource.org/licenses/mit-license.php )
+ * Repo: https://github.com/dschnare/purejs
+ */
 var pure = (function() {
     "use strict";
 
