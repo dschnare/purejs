@@ -9,7 +9,7 @@ var pure = (function() {
     "use strict";
 
     var pure, mixin, isString, isBoolean, isNumber, isFunction, isArray,
-        isObject, isDefined, isUndefined, Object, Array, String, Boolean, Number;
+        isObject, isDefined, isUndefined, Object, Array, String, Boolean, Number, typeOf;
 
     Object =({}).constructor;
     Array = ([]).constructor;
@@ -42,7 +42,7 @@ var pure = (function() {
         isUndefined: isUndefined = function(o) {
             return o === undefined || o === null;
         },
-        typeOf: function(o) {
+        typeOf: typeOf = function(o) {
             if (o === null) return "null";
             if (isArray(o)) return "array";
             return typeof o;
@@ -78,15 +78,15 @@ var pure = (function() {
                         return false;
                     }
 
-                    if (typeof o[key] !== typeof interfce[key] &&
-                        typeof o[key] !== (interfce[key] + "")) return false;
+                    if (typeOf(o[key]) !== typeOf(interfce[key]) &&
+                        typeOf(o[key]) !== (interfce[key] + "")) return false;
                 }
 
                 return true;
             }
 
-            typeofo = o === null ? "null" : typeof o;
-            typeofi = interfce === null ? "null" : typeof interfce;
+            typeofo = o === null ? "null" : typeOf(o);
+            typeofi = interfce === null ? "null" : typeOf(interfce);
 
             return typeofo === typeofi;
         },
