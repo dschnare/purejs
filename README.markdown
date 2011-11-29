@@ -16,8 +16,10 @@ Purejs
 Installation
 --------------------
 
-Copy the files from the 'src' directory to your scripts directory.
+Copy the source scripts from the 'src' directory or the minified scripts from the 'bin' directory to your project's scripts directory.
 
 The `src/pure.js` file is the source file with inline commenting, and the `bin/pure.min.js` file is the minified obsfucated source file.
 
-To install simply download one of the files above and include them via a `<script>` element.
+The `src/pure.amd.js` file is the source AMD module with inline commenting, and the `bin/pure.amd.min.js` file is the minified obsfucated module.
+
+To use, simply include one of the scripts via a `<script>` element or use the AMD version in a modular application.
