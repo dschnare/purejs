@@ -5,10 +5,10 @@
  * License: MIT ( http://www.opensource.org/licenses/mit-license.php )
  * Repo: https://github.com/dschnare/purejs
  */
-(function(define) {
+define(function() {
     "use strict";
 
-    var pure, mixin, isString, isBoolean, isNumber, isFunction, isArray,
+    var mixin, isString, isBoolean, isNumber, isFunction, isArray,
         isObject, isDefined, isUndefined, Object, Array, String, Boolean, Number, typeOf;
 
     Object =({}).constructor;
@@ -17,7 +17,7 @@
     Boolean = (true).constructor;
     Number = (4).constructor;
 
-    define({
+    return {
         isString: isString = function(o) {
             return typeof o === "string" || o instanceof String;
         },
@@ -217,5 +217,5 @@
                 };
             }())
         }
-    });
-}(window.define));
+    };
+});
