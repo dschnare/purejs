@@ -20,6 +20,4 @@ Copy the source scripts from the 'src' directory or the minified scripts from th
 
 The `src/pure.js` file is the source file with inline commenting, and the `bin/pure.min.js` file is the minified obsfucated source file.
 
-The `src/pure.amd.js` file is the source AMD module with inline commenting, and the `bin/pure.amd.min.js` file is the minified obsfucated module.
-
-To use, simply include one of the scripts via a `<script>` element or use the AMD version in a modular application.
+To use, simply include one of the scripts via a `<script>` element. The script can be used as an AMD module or a Nodejs/CommonJS module in a modular application as well.
