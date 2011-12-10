@@ -234,4 +234,4 @@ var pure = (function() {
 	} else {
 		return pure;
 	}
-}());
+}()) || pure;
