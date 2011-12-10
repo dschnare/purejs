@@ -17,7 +17,7 @@ var pure = (function() {
     Boolean = (true).constructor;
     Number = (4).constructor;
 
-    return {
+    pure = {
         isString: isString = function(o) {
             return typeof o === "string" || o instanceof String;
         },
@@ -218,4 +218,20 @@ var pure = (function() {
             }())
         }
     };
+
+	// Asynchronous modules (AMD) supported.
+	if (typeof define === "function" &&
+		typeof define.amd === "object") {
+
+		define(pure);
+
+	// Nodejs/CommonJS modules supported.
+	} else if (typeof exports !== "undefined") {
+
+		pure.mixin(exports, pure);
+
+	// Modules are not supported.
+	} else {
+		return pure;
+	}
 }());
