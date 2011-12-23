@@ -171,9 +171,6 @@ var pure = (function() {
                         // Create a new instance inheriting from our prototype.
                         var o = createInstance(ctr.prototype);
 
-                        // Ensure we have the proper constructor history.
-                        o.constructor = ctr;
-
                         // Trigger the copy contructor if we received a single
                         // argument that is an instance of our constructor and
                         // the copy() method exists. Then return the object.
@@ -210,9 +207,10 @@ var pure = (function() {
                     // Mixin all properties from members onto our prototype.
                     mixin(prototype, members);
 
-                    // Assign our prototype and
-                    // return our constructor
+                    // Setup references to our prototype and constructor.
                     ctr.prototype = prototype;
+					prototype.constructor = ctr;
+
                     return ctr;
                 };
             }())
