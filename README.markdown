@@ -1,6 +1,6 @@
 >   Author: Darren Schnare
 
->	Version: 1.1
+>	Version: 1.11
 
 >   Keywords: javascript,constructor,inheritence,mixin,pure,type,testing
 
