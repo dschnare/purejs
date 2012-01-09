@@ -1,7 +1,5 @@
 >   Author: Darren Schnare
 
->	Version: 1.11
-
 >   Keywords: javascript,constructor,inheritence,mixin,pure,type,testing
 
 >   License: MIT ( http://www.opensource.org/licenses/mit-license.php )
