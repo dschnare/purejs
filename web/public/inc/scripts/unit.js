@@ -1,14 +1,14 @@
 ﻿/**
  * <p>Represents an API for performing unit tests.</p>
  *
- * <p>The Unite API is organized into tests, test suites, and test harnesses. Tests are function
+ * <p>The Unit API is organized into tests, test suites, and test harnesses. Tests are function
  * that accept no arguments and may use the assertion functions to make assertions or returns a
  * promise (created from the Promise API). If a test throws an error or smashes its promise
- * then the test is said to have failed. If a test throws no error or filfills its promise then
+ * then the test is said to have failed. If a test throws no error or fulfills its promise then
  * the test is said to have passed.</p>
  *
  * <p>Test suites are objects that consist of several tests. Each test suite has its methods enumerated
- * and only the methods with no formal arguments will be recognized as tests. Besides tests a suite can
+ * and only the methods with no formal arguments will be recognized as tests. Besides tests, a suite can
  * have the following life cycle methods: Setup; called once before each test is executed with the test name,
  * Destroy; called once after each test has executed with the test name, SetupSuite; called once before
  * any test has executed, DestroySuite; called once after all tests have been executed. Note that the life-
@@ -30,6 +30,25 @@ var unit = (function(browserConsole, document) {
     ///////////////////////
 
     util = {
+        object: {
+            respondsto: function(o/*, ... */) {
+                var methodNames = Array.prototype.slice.call(arguments, 1),
+                    i = 0,
+                    len = methodNames.length,
+                    methodName = null,
+                    result = o !== undefined && o !== null && len !== 0;
+
+                for (i = 0; result && i < len; i += 1) {
+                    methodName = methodNames[i] === undefined ? methodNames[i].toString() : '';
+
+                    if (typeof o[methodName] !== 'function') {
+                        result = false;
+                    }
+                }
+
+                return result;
+            }
+        },
         string: {
             format: function(string /*, ... */) {
                 var arg, i, a,   len;
@@ -80,21 +99,6 @@ var unit = (function(browserConsole, document) {
             }
         },
         promise: {
-            isPromise: function(o) {
-                function areFunctions(o/*, ... */) {
-                    var i, args = arguments, len = args.length, func = "function";
-
-                    if (!o) return false;
-
-                    for (i = 1; i < len; i++) {
-                        if (typeof o[args[i]] !== func) return false;
-                    }
-
-                    return true;
-                }
-
-                return areFunctions(o, "smash", "fulfill", "fulfilled", "smashed", "fulfilledOrSmashed");
-            },
             create: function() {
                 var status, outcome, waiting = [], dreading = [], resolved = false;
 
@@ -117,7 +121,7 @@ var unit = (function(browserConsole, document) {
 
                     resolved = true;
 
-                    if (util.promise.isPromise(value)) {
+                    if (util.object.respondsto(value, 'fulfilled', 'smashed')) {
                         status = "pending";
 
                         value
@@ -235,9 +239,9 @@ var unit = (function(browserConsole, document) {
 
         console = {
             show: function() {
-                if (!div.parentNode) {
-                    var body = document.getElementsByTagName("body")[0];
+                var body = document.getElementsByTagName("body")[0];
 
+                if (div.parentNode !== body) {
                     if (body) {
                         body.appendChild(div);
                     }
@@ -425,8 +429,10 @@ var unit = (function(browserConsole, document) {
 				} catch (ignore) {}
 			}
 
-            if (browserConsole && typeof browserConsole.log === "function") {
+            try {
                 browserConsole.log(message);
+            } catch (error) {
+                // ignore
             }
 		},
 		/**
@@ -435,22 +441,34 @@ var unit = (function(browserConsole, document) {
 		fail: function(message) {
 			throw new AssertError("Fail: " + message);
 		},
+        /**
+         * Expect the specified value to be true. If value is flase then the message is thrown as an AssertionError.
+         */
         expect: function(message, value) {
             if (!value) {
                 error("Expected " + message || util.string.format("Expected '{0}' to be true.", value));
             }
         },
+        /**
+         * Expect the specified function to throw. If the function does not throw then the message is thrown as an AssertionError.
+         */
         expectToThrow: function(message, fn) {
             try {
                 fn();
                 error("Expected " + message || "Expected function to throw an error.");
             } catch (ignore) {}
         },
+        /**
+         * Expect the specified value to be false. If value is true then the message is thrown as an AssertionError.
+         */
         dontExpect: function(message, value) {
             if (value) {
                 error("Did not expect " + message || util.string.format("Did not expect '{0}' to be true.", value));
             }
         },
+        /**
+         * Expect the specified function to not throw. If the function throws then the message is thrown as an AssertionError.
+         */
         dontExpectToThrow: function(message, fn) {
             try {
                 fn();
@@ -459,7 +477,7 @@ var unit = (function(browserConsole, document) {
             }
         },
 		/**
-		 * Makes a tes harness from a series of test suite objects.
+		 * Makes a test harness from a series of test suite objects.
 		 *
 		 * @symbol makeTestHarness {Function}
 		 * @param name {String} The name of the test harness for logging purposes.
@@ -661,7 +679,7 @@ var unit = (function(browserConsole, document) {
 
                     promise = util.promise.create();
 
-                    if (util.promise.isPromise(p)) {
+                    if (util.object.respondsto(p, 'fulfill')) {
                         promise.fulfill(p);
                     } else {
                         if (fail) {

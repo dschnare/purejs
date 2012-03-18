@@ -1,18 +1,4 @@
->   Author: Darren Schnare
-
->   Keywords: javascript,constructor,inheritence,mixin,pure,type,testing
-
->   License: MIT ( http://www.opensource.org/licenses/mit-license.php )
-
->   Repo: https://github.com/dschnare/purejs
-
-
-Purejs
-====================
-
-
-Installation
---------------------
+# Overview
 
 Copy the source scripts from the 'src' directory or the minified scripts from the 'bin' directory to your project's scripts directory.
 
