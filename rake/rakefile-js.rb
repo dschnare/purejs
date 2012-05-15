@@ -60,24 +60,24 @@ js = namespace :js do
 
 	desc "Run jslint on all JavaScript source files directly in the '#{Paths[:build]}' directory. If a filename is specified then just this file will be linted. Excludes files with the suffix 'extern[s].js' or '.min.js' or the prefix '_' when scanning the `#{Paths[:build]}` directory. Exit with status 1 if a file fails."
 	task :lint, [:filename] do |t, args|
-		if args.filename
+		if args.filename.nil?
+			FileList["#{Paths[:build]}/*.js"].exclude(/externs?\.js$|\.min\.js$|\/_|^_/).each do |fname|
+				cmd = "#{Commands[:jslint]} #{fname}"
+				results = %x{#{cmd}}
+
+				unless results.length == 0
+					puts "#{fname}:"
+					puts results
+					exit 1
+				end
+			end
+		else
 			if File.exists?(args.filename)
 				cmd = "#{Commands[:jslint]} #{args.filename}"
 				results = %x{#{cmd}}
 
 				unless results.length == 0
 					puts "#{args.filename}:"
-					puts results
-					exit 1
-				end
-			end
-		else
-			FileList["#{args.directory}/*.js"].exclude(/externs?\.js$|\.min\.js$|\/_|^_/).each do |fname|
-				cmd = "#{Commands[:jslint]} #{fname}"
-				results = %x{#{cmd}}
-
-				unless results.length == 0
-					puts "#{fname}:"
 					puts results
 					exit 1
 				end

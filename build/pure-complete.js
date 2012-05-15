@@ -6,7 +6,7 @@
  * Repo: https://github.com/dschnare/project-template
  */
 
-/*globals 'window' */
+/*globals 'window', 'define', 'exports', 'require' */
 
 /**
  * Exports a symbol with the given name onto the specified scope.
@@ -56,29 +56,31 @@ function xport(name, symbol, scope) {
  * is present then will call the fallback callback.
  *
  * For example:
- *   // With dependencies
- *   xport.module(['dep1', 'jquery', 'dep2'], moduleFn, function () {
- *     xport('MODULE', moduleFn(DEP1, jQuery, DEP2));
- * 	 });
+ *	// With dependencies
+ *	xport.module(['dep1', 'jquery', 'dep2'], moduleFn, function () {
+ *		xport('MODULE', moduleFn(DEP1, jQuery, DEP2));
+ *	});
  *
- *   // Without dependencies
- *   xport.module(moduleFn, function () {
- *     xport('MODULE', moduleFn());
- * 	 });
+ *	// Without dependencies
+ *	xport.module(moduleFn, function () {
+ *		xport('MODULE', moduleFn());
+ *	});
  *
- *   // Without dependencies
- *   xport.module(someObject, function () {
- *     xport('MODULE', someObject);
- * 	 });
+ *	// Without dependencies
+ *	xport.module(someObject, function () {
+ *		xport('MODULE', someObject);
+ *	});
  *
  * @param {Array<String>=} deps The module dependencies to use when exporting via AMD or CommonJS (optional).
  * @param {function(...Object):Object|Object} fn The module function or if an object if there are no dependencies.
  * @param {function()} fallback The callback to call when no module system exists.
  */
- xport('module', function (deps, fn, fallback) {
-	var d, i, o, k;
+xport('module', function (deps, fn, fallback) {
+	'use strict';
 
-	if (arguments.length == 2) {
+	var d, i, o, k, Object = ({}).constructor;
+
+	if (Object.prototype.toString.call(deps) !== '[object Array]') {
 		fallback = fn;
 		fn = deps;
 		deps = [];
@@ -88,7 +90,7 @@ function xport(name, symbol, scope) {
 			fn = (function (o) {
 				return function () {
 					return o;
-				}
+				};
 			}(fn));
 		}
 	}
