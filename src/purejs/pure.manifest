@@ -1,0 +1,7 @@
+=files=
+{manifest_path}/module.js
+
+=compiler options=
+--compilation_level ADVANCED_OPTIMIZATIONS
+--externs {manifest_path}/instance.externs.js
+--externs src/xport/externs.js
