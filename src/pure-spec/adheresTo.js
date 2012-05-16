@@ -1,13 +1,14 @@
-	var adheresToSuite = {
-			wildCardAdheresToTest: function () {
-				unit.expect('object to adhereTo {age: "*"}.', PURE.adheresTo({age: 23}, {age: '*'}));
-				unit.dontExpect('object to adhereTo {age: "*"}.', PURE.adheresTo({age: undefined}, {age: '*'}));
-				unit.expect('object to adhereTo {age: "*"}.', PURE.adheresTo({age: null}, {age: '*'}));
-				unit.expect('object to adhereTo {age: "*"}.', PURE.adheresTo({age: {}}, {age: '*'}));
-				unit.dontExpect('object to adhereTo {age: "*"}.', PURE.adheresTo({}, {age: '*'}));
-			},
-			adherenceTest: function () {
-				unit.expect('object to adhereTo Object.prototype.', PURE.adheresTo({}, Object.prototype));
-				unit.expect('object to adhereTo {name: "string", age: "number"}.', PURE.adheresTo({name: 'Darren', age: 29}, {name: 'string', age: 'number'}));
-			}
-		},
+	module('Adherence Tests');
+
+	test('wild card adheresTo test', function () {
+		ok(PURE.adheresTo({age: 23}, {age: '*'}), 'Expect object to adhereTo {age: "*"}.');
+		equal(PURE.adheresTo({age: undefined}, {age: '*'}), false, 'Dont expect object to adhereTo {age: "*"}.');
+		ok(PURE.adheresTo({age: null}, {age: '*'}), 'Expect object to adhereTo {age: "*"}.');
+		ok(PURE.adheresTo({age: {}}, {age: '*'}), 'Expect object to adhereTo {age: "*"}.');
+		equal(PURE.adheresTo({}, {age: '*'}), false, 'Dont expect object to adhereTo {age: "*"}.');
+	});
+
+	test('adherence test', function () {
+		ok(PURE.adheresTo({}, Object.prototype), 'Expect object to adhereTo Object.prototype.');
+		ok(PURE.adheresTo({name: 'Darren', age: 29}, {name: 'string', age: 'number'}), 'Expect object to adhereTo {name: "string", age: "number"}.');
+	});

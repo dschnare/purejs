@@ -1,60 +1,58 @@
-        mixinSuite = {
-            setupOwnPropertyTest: function () {
-                function create(o) {
-                    function F() {}
-                    F.prototype = o;
-                    return new F();
-                }
+	module('Mixin Tests');
 
-                this.a = {
-                    name: 'Ninja',
-                    age: 300
-                };
+	function setup() {
+		var create = function (o) {
+				function F() {}
+				F.prototype = o;
+				return new F();
+			},
+			state = {
+				a: {
+					name: 'Ninja',
+					age: 300
+				}
+			};
 
-                this.b = create(this.a);
-                this.b.stars = 800;
-                this.b.health = 1000;
-            },
-            ownPropertyTest: function () {
-                var o = PURE.mixin({}, this.b);
+		state.b = create(state.a);
+		state.b.stars = 800;
+		state.b.health = 1000;
 
-                unit.expect('o.stars to be equal to b.stars.', o.stars === this.b.stars);
-                unit.expect('o.health to equal to b.health.', o.health === this.b.health);
-                unit.dontExpect('o.name to be equal to a.name.', o.name === this.a.name);
-                unit.dontExpect('o.age to be equal to a.age.', o.age === this.a.age);
-            },
-            destroyOwnPropertyTest: function () {
-                delete this.a;
-                delete this.b;
-            },
-            setupOverwritePropertyTest: function () {
-                this.setupOwnPropertyTest();
-            },
-            overwritePropertyTest: function () {
-                this.b.age = 3500;
-                var o = PURE.mixin(this.a, this.b);
+		return state;
+	}
 
-                unit.expect('o.name to be equal to a.name.', o.name === this.a.name);
-                unit.expect('o.age to be equal to 3500.', o.age === 3500);
-            },
-            destroyOverwritePropertyTest: function () {
-                this.destroyOwnPropertyTest();
-            },
-            objectCreationTest: function () {
-                var o = {},
-                    j;
+	test('ownProperty test', function () {
+		var state = setup(), o = PURE.mixin({}, state.b);
 
-                unit.expect('o to be an object.', typeof o === 'object');
+		strictEqual(o.stars, state.b.stars, 'Expect o.stars to equal b.stars.');
+		strictEqual(o.health, state.b.health, 'Expect o.health to equal b.health.');
+		notStrictEqual(o.name, state.a.name, 'Don\'t Expect o.name to equal a.name.');
+		notStrictEqual(o.age, state.a.age, 'Don\'t expect o.age to be equal to a.age.');
+	});
 
-                j = PURE.mixin(o, {age: 45});
-                unit.expect('o to be the same object as j.', o === j);
+	test('overwrite property test', function () {
+		var state = setup(), o;
 
-                unit.expectToThrow('PURE.mixin() to throw an error.', function () {
-                    PURE.mixin();
-                });
+		state.b.age = 3500;
+		o = PURE.mixin(state.a, state.b);
 
-                unit.expectToThrow('PURE.mixin(null, {age: 45}) to throw an error.', function () {
-                    PURE.mixin(null, {age: 45});
-                });
-            }
-        },
+		strictEqual(o.name, state.a.name, 'Expect o.name to equal a.name.');
+		strictEqual(o.age, 3500, 'Expect o.age to equal 3500.');
+	});
+
+	test('object creation test', function () {
+		var o = {},
+			j;
+
+		strictEqual(typeof o, 'object', 'Expect o to be an object.');
+
+		j = PURE.mixin(o, {age: 45});
+		strictEqual(o, j, 'Expect o to be the same object as j.');
+
+		raises(function () {
+			PURE.mixin();
+		}, 'Expect PURE.mixin() to throw an error.');
+
+		raises(function () {
+			PURE.mixin(null, {age: 45});
+		}, 'Expect PURE.mixin(null, {age: 45}) to throw an error.');
+	});

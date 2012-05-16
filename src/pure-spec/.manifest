@@ -8,5 +8,5 @@
 
 =compiler options=
 --compilation_level SIMPLE_OPTIMIZATIONS
---externs {manifest_path}/unit.externs.js
+--externs {manifest_path}/qunit.externs.js
 --externs src/purejs/externs.js

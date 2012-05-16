@@ -3,11 +3,13 @@
 	<head>
 		<title>Purejs Test Page</title>
 		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="inc/scripts/vendor/qunit/qunit-1.5.0.css" />
 		<script type="text/javascript" src="inc/scripts/xport.min.js"></script>
 		<script type="text/javascript" src="inc/scripts/pure.min.js"></script>
-        <script type="text/javascript" src="inc/scripts/unit.js"></script>
-        <script type="text/javascript" src="inc/scripts/pure-spec.min.js"></script>
 	</head>
-	<body onload="unit.console.show()">
+	<body>
+		<div id="qunit"></div>
+		<script type="text/javascript" src="inc/scripts/vendor/qunit/qunit-1.5.0.js"></script>
+		<script type="text/javascript" src="inc/scripts/pure-spec.js"></script>
 	</body>
 </html>

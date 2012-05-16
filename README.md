@@ -39,6 +39,20 @@ This project contains several modules that get built into the 'build' directory.
 - build/pure-spec.js
 - build/pure-spec.min.js
 
+# Closure Compiler Externs Issues
+
+The purejs `constructor.create` API relies on instances having an `init` or a `copy` method so you must ensure that these methods are either exported using the `xport` function or array access notation `[]`. As a convenience, purejs has an external declaration you may use in your modules to help remedy this: `instance.externs.js`. This extern file contains a constructor that declares `init` and `copy` to be part of its prototype, which will preserve each of these method names anywhere in your code.
+
+Your manifest:
+
+	=files=
+	{manifest_path}/some-file.js
+	{manifest_path}/some-file2.js
+
+	=compiler options=
+	--compilation_level ADVANCED_OPTIMIZATIONS
+	--externs src/purejs/instance.externs.js
+
 # API
 
 See [purejs.org](http://www.purejs.org) for the API reference and more info.

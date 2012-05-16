@@ -4,8 +4,8 @@
  * License: MIT ( http://www.opensource.org/licenses/mit-license.php )
  * Repo: https://github.com/dschnare/purejs
  */
-/*global 'define', 'exports'*/
-(function () {
+/*global 'define', 'exports', 'window', 'xport'*/
+(function (xport) {
 	'use strict';
 
 	var  Object = ({}).constructor,
@@ -180,8 +180,6 @@
 			}
 
 			ctr = function (cpy) {
-				// Create a new instance inheriting from our prototype.
-				/** @type {Instance} */
 				var o = create(ctr.prototype);
 
 				// Trigger the copy contructor if we received a single
@@ -229,4 +227,4 @@
 	xport.module(pure, function () {
 		xport('PURE', pure);
 	});
-}());
+}(typeof xport === 'function' ? xport : undefined));
