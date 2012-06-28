@@ -3,55 +3,50 @@
 Purejs is an API to help create constructors and manage their prototype chain. Purejs adheres to JavaScript's prototypal nature without introducing new ideas, allowing a greater integration with builtin constructors.
 
 
-# Building
+# Installation
 
-Ruby Rake is used to build the purejs module. Use `rake -D` to list all the rake tasks. For more indepth details on the build system for the project see my [project template](https://github.com/dschnare/project-template) repo, of which this project is based.
+Install locally:
 
-Use `rake deploy` to perform a build and to have all built files copied to 'web/inc/scripts'.
+	npm install git://github.com/dschnare/utiljs.git
 
+Or use as a dependency:
 
-# Testing
+	{
+		"dependencies": {
+			"utiljs": "git://github.com/dschnare/utiljs.git"
+		}
+	}
 
-There is a small web project in the 'web' directory for testing purposes. This project includes several unit test suites that test the validity of the purejs API.
+If all you want is a minified version of this script and its dependencies so you can simply include it in your web page do the following:
+
+1. Install Node with NPM.
+2. Create an empty directory and run the following:
+
+		npm install git://github.com/dschnare/purejs.git
+		cd node_modules/purejs
+		npm install
+		npm run-script build-test
+
+3. Copy the source files you want from `node_modules/purejs/test/js`.
+4. Delete the directory you just created.
+
 
 # Support
 
 Supports all JavaScript 1.3 and above environments.
 
-# Build Products
+# Testing
 
-This project contains several modules that get built into the 'build' directory.
+If you want to run the tests then you will need to do the following:
 
-**src/xport** - The xport module that exports a function used to export symbols for the Closure Compiler (< 1Kb when compiled).
+	cd purejs
+	npm install
+	npm run-script build-test
 
-- build/xport.js
-- build/xport.min.js
+Then open `test/index.html` in a web browser. This web page uses QUnit to run several unit tests.
 
-**src/purejs** - The purejs module that exports the purejs API. Depends on the xport module.
+**WARNING:** Do not run `npm install` with the `--dev` option on. This will result in an infinite dependency cycle. The cycle exists somewhere in the hierarchy, in some third-party module and I haven't been able to track it down to tell the author(s). Only run `npm install` with no arguments in the `utiljs` module directory.
 
-- build/pure.js
-- build/pure.min.js
-- build/pure-complete.js (contains xport module)
-- build/pure-complete.min.js (contains compiled xport module)
-
-**src/pure-spec** - The purejs specification module that exports several unit test suites.
-
-- build/pure-spec.js
-- build/pure-spec.min.js
-
-# Closure Compiler Externs Issues
-
-The purejs `constructor.create` API relies on instances having an `init` or a `copy` method so you must ensure that these methods are either exported using the `xport` function or array access notation `[]`. As a convenience, purejs has an external declaration you may use in your modules to help remedy this: `instance.externs.js`. This extern file contains a constructor that declares `init` and `copy` to be part of its prototype, which will preserve each of these method names anywhere in your code.
-
-Your manifest:
-
-	=files=
-	{manifest_path}/some-file.js
-	{manifest_path}/some-file2.js
-
-	=compiler options=
-	--compilation_level ADVANCED_OPTIMIZATIONS
-	--externs src/purejs/instance.externs.js
 
 # API
 
