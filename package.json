@@ -1,0 +1,29 @@
+{
+	"name": "purejs",
+	"version": "0.0.0",
+	"description": "Purejs is an API to help create constructors and manage their prototype chain.",
+	"keywords": ["javascript", "constructor", "inheritence", "mixin", "pure", "type", "testing"],
+	"author": {
+		"name": "Darren Schnare",
+		"email": "schnare.d@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "http://github.com/dschnare/purejs.git"
+	},
+	"main": "main",
+	"interface": "interface",
+	"externs": ["externs/instance.js"],
+	"compilation_level": "ADVANCED_OPTIMIZATIONS",
+	"dependencies": {
+		"xport": "*"
+	},
+	"devDependencies": {
+		"4web": "*",
+		"jslint-core": "*"
+	},
+	"scripts": {
+		"build-test": "node scripts/build-test.js",
+		"lint": "node scripts/lint.js"
+	}
+}

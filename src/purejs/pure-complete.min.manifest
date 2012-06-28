@@ -1,6 +1,0 @@
-=options=
-no_compilation
-
-=files=
-build/xport.min.js
-build/pure.min.js
