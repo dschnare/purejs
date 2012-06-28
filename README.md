@@ -27,7 +27,7 @@ If all you want is a minified version of this script and its dependencies so you
 		npm install
 		npm run-script build-test
 
-3. Copy the source files you want from `node_modules/purejs/test/js`.
+3. Copy the source files you want from `node_modules/purejs/test/js`. The combined script files contain purejs and all its dependencies.
 4. Delete the directory you just created.
 
 
