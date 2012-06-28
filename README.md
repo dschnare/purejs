@@ -7,13 +7,13 @@ Purejs is an API to help create constructors and manage their prototype chain. P
 
 Install locally:
 
-	npm install git://github.com/dschnare/utiljs.git
+	npm install git://github.com/dschnare/purejs.git
 
 Or use as a dependency:
 
 	{
 		"dependencies": {
-			"utiljs": "git://github.com/dschnare/utiljs.git"
+			"purejs": "git://github.com/dschnare/purejs.git"
 		}
 	}
 
@@ -45,7 +45,7 @@ If you want to run the tests then you will need to do the following:
 
 Then open `test/index.html` in a web browser. This web page uses QUnit to run several unit tests.
 
-**WARNING:** Do not run `npm install` with the `--dev` option on. This will result in an infinite dependency cycle. The cycle exists somewhere in the hierarchy, in some third-party module and I haven't been able to track it down to tell the author(s). Only run `npm install` with no arguments in the `utiljs` module directory.
+**WARNING:** Do not run `npm install` with the `--dev` option on. This will result in an infinite dependency cycle. The cycle exists somewhere in the hierarchy, in some third-party module and I haven't been able to track it down to tell the author(s). Only run `npm install` with no arguments in the `purejs` module directory.
 
 
 # API
