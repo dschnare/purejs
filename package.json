@@ -1,6 +1,6 @@
 {
 	"name": "purejs",
-	"version": "0.0.1",
+	"version": "2.3.1",
 	"description": "Purejs is an API to help create constructors and manage their prototype chain.",
 	"keywords": ["javascript", "constructor", "inheritence", "mixin", "pure", "type", "testing"],
 	"author": {
