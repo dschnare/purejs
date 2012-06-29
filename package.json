@@ -12,7 +12,7 @@
 		"url": "http://github.com/dschnare/purejs.git"
 	},
 	"main": "main",
-	"interface": "interface",
+	"interface": "interface.js",
 	"externs": ["externs/instance.js"],
 	"compilation_level": "ADVANCED_OPTIMIZATIONS",
 	"dependencies": {
