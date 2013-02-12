@@ -48,10 +48,11 @@ See [purejs.org](http://www.purejs.org) for the API reference and more info.
 - Change the exported name in browsers to `Pure` instead of `PURE`.
 - isArray() no longer tests for Array-like objects. Objects are only considered an Array if they have Array in their prototype chain.
 - isObject() now uses the following test: `o === Object(o)`.
-- add isPrimitive() to test for 'string', 'number' and 'boolean'.
+- add isPrimitive() to test for `string`, `number` and `boolean` literals.
 - add create() to create new objects from existing ones.
-- remove the getName() method on constructors created via Pure.constructor.create().
-- In a previous version the name argument was not being used, now it's being used by overriding the created constructor's toString() method.
-- The name argument no longer defaults to `UnnamedConstructor`.
-- If no name argument is given then the created constructor's toString() method is not overridden.
+- constructor.create:
+      - remove the getName() method on constructors created via Pure.constructor.create().
+      - In a previous version the name argument was not being used, now it's being used by overriding the created constructor's toString() method.
+      - The name argument no longer defaults to `UnnamedConstructor`.
+      - If no name argument is given then the created constructor's toString() method is not overridden.
 - Change the unit tests to use Jasmine.
