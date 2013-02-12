@@ -1,0 +1,215 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>purejs - effortless. javascript.</title>
+        <meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="inc/styles/reset.css" />
+		<link rel="stylesheet" type="text/css" href="inc/styles/common.css" />
+		<link rel="stylesheet" type="text/css" href="inc/styles/home.css" />
+		<!--[if lte IE 8]>
+		<script type="text/javascript" src="inc/scripts/html5.js"></script>
+		<![endif]-->
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-27436694-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
+    </head>
+
+    <body>
+		<!--[if lt IE 7]> <div style='clear: both; height: 59px; padding: 0; position: relative;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." /></a></div> <![endif]-->
+
+		<div class="header-backing"></div>
+		<a href="https://github.com/dschnare/purejs" title="Fork me on Github" class="fork-me" onclick="_gaq.push(['_trackEvent', 'Actions', 'Fork', 'Purejs API on Github']);"></a>
+
+		<div class="main">
+			<header>
+				<div class="logo">
+					<a href="index.html"><h1>{<span>pure</span>js}</h1></a>
+					<h2>effortless. javascript.</h2>
+				</div>
+				<h3>The missing API for Javascript.</h3>
+			</header>
+
+			<nav>
+				<ul>
+					<li><a href="index.html" title="home">home</a></li>
+					<li><a href="reference.html" title="reference">reference</a></li>
+					<li><a href="https://github.com/dschnare/purejs/zipball/master" title="download as zip" onclick="_gaq.push(['_trackEvent', 'Actions', 'Download', 'Purejs API']);">download</a></li>
+					<li ><a href="https://twitter.com/#!/search/realtime/%23purejsapi" title="Follow the purejs conversation on Twitter" onclick="_gaq.push(['_trackEvent', 'Actions', 'Follow', 'Twitter #purejsapi']);">#purejsapi</a></li>
+					<li class="last"><a href="about.html" title="about">about</a></li>
+				</ul>
+			</nav>
+
+			<section>
+				<h2>{constructors}</h2>
+				<details open="open">
+					<summary>Reliably handle constructors and the prototype.</summary>
+
+					<p>Create a constructor ...</p>
+<pre>var MyConstructor = Pure.constructor.create({
+    // Here is where we define prototype-level members.
+    // If the instance has an init() method it is called immediately after the
+    // constructor with the same arguments passed to the constructor.
+    init: function() {
+        // Here is where we initialize the instance.
+        // All instance-level members are defined here.
+    }
+});</pre>
+
+					<p>Create a constructor inheriting a prototype ...</p>
+<pre>var MyOtherConstructor = Pure.constructor.create(MyConstructor.prototype, {
+    init: function() {
+        // Call the base version of our init() method.
+        MyConstructor.prototype.init.call(this);
+    }
+});</pre>
+
+					<p>Create a constructor inheriting a prototype, but cache the base prototype ...</p>
+<pre>var MyOtherConstructor2 = (function(base) {
+    return Pure.constructor.create(base, {
+        init: function() {
+            // Call the base version of our init() method.
+            base.init.call(this);
+        }
+    });
+}(MyConstructor.prototype));</pre>
+
+					<p>Use constructors created with Purejs with or without the 'new' keyword ...</p>
+<pre>var mc = MyConstructor();
+var mc2 = new MyConstructor();</pre>
+
+					<p>Create a constructor that supports 'copy constructor' calls similar to C++ ...</p>
+					<pre>var C = Pure.constructor.create({
+    init: function(name) {
+        // Initialize the instance data.
+        this.name = name;
+    },
+    // Define a copy operator to be used by  a 'copy constructor' call on our constructor.
+    copy: function(other) {
+        // Copy the 'other' reference into ourselves,
+        // but first a sanity/safety check.
+        if (other instanceof C) {
+            this.name = other.name;
+        }
+    }
+});
+
+var c = C('ObjectC');
+// Make a new instance of 'C' and copy 'c' into the new instance.
+// NOTE: If a copy operator does not exist on instances of 'C'
+// or the single argument passed to the copy constructor is not an
+// instance of 'C' then this will just be a normal constructor call.
+var cc = C(c);</pre>
+				</details>
+
+				<h2>{interface testing}</h2>
+				<details>
+					<summary>Perform interface adherence tests on any object.</summary>
+
+					<p>Ensure an object has a specific interface ...</p>
+<pre>var Rect = Pure.constructor.create({
+    init: function(w, h) {
+        this._width = w;
+        this._height = h;
+    },
+    width: function(value) {
+        if (arguments.length === 1) this._width = value;
+        return this._width;
+    },
+    height: function(value) {
+        if (arguments.length === 1) this._height = value;
+        return this._height;
+    }
+});
+
+var r = {
+    width: 40,
+    height: 40
+};
+
+var rect = Rect(10, 10);
+
+// true since all objects adhere to their own interface.
+Pure.adheresTo(r, r);
+
+// false since width and height are not functions and init is not present.
+Pure.adheresTo(r, Rect.prototype);
+// false since width and height are not functions and init is not present
+// and _width and _height are not present.
+Pure.adheresTo(r, rect);
+
+// true since we test r against an interface specification.
+Pure.adheresTo(r, {
+    width: 'number',
+    height: 'number'
+});
+
+// true since we test r against an interface specification with
+// the 'any type' specifier for both width and height.
+Pure.adheresTo(r, {
+    width: '*',
+    height: '*'
+});</pre>
+				</details>
+
+				<h2>{mixins}</h2>
+				<details>
+					<summary>Share properties with mixin support.</summary>
+
+					<p>Copy all own properties from one object to another ...</p>
+<pre>var a = {name: 'a'}, b = {name: 'b', sex: 'm'};
+// Copy all own properties from 'b' into 'a',
+// overwriting properties with the same name.
+// The result: a={name: 'b', sex: 'm'}
+Pure.mixin(a, b);</pre>
+
+					<p>Copy all own properties from many objects to another ...</p>
+<pre>var a = {name: 'a'}, b = {name: 'b', sex: 'm'}, c = {name: 'c', age: 29};
+// Copy all own properties from 'b' and 'c' into 'a',
+// overwriting properties with the same name.
+// The result: a={name: 'c', sex: 'm, age: 29'}
+Pure.mixin(a, b, c);</pre>
+				</details>
+
+				<h2>{type testing}</h2>
+				<details>
+					<summary>Intuitive tests for all Javascript types.</summary>
+
+					<p>Test if an object is an array ...</p>
+<pre>var a = [], b = new Array(), c = {}, d = 1;
+Pure.isArray(a); // true
+Pure.isArray(b); // true
+Pure.isArray(c); // false
+Pure.isArray(d); // false</pre>
+
+					<p>Get the true type of an object ...</p>
+<pre>var a = null, b = [], c = 3, d = {}, e = 'hello world', f = new Number(34);
+Pure.typeOf(a); // 'null'
+Pure.typeOf(b); // 'array'
+Pure.typeOf(c); // 'number'
+Pure.typeOf(d); // 'object'
+Pure.typeOf(e); // 'string'
+Pure.typeOf(f); // 'object'</pre>
+
+					<p>Intelligently check the type of an object ...</p>
+<pre>var a = 1, b = new Number(1), c = 'hello', d = new String('hello');
+Pure.isNumber(a); // true
+Pure.isNumber(b); // true
+Pure.isString(c); // true
+Pure.isString(d); // true</pre>
+				</details>
+			</section>
+
+			<footer>
+				<strong>Author:</strong> Darren Schnare | <strong>License:</strong> <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a>
+			</footer>
+		</div>
+    </body>
+</html>

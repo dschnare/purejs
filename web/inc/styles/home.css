@@ -1,0 +1,46 @@
+/**************
+ * Typography *
+ **************/
+
+summary {
+	font-size: larger;
+}
+
+details p {
+	font-weight: bold;
+}
+
+pre {
+	font: 13px monospace;
+	color: #ffffff;
+}
+
+/**********
+ * Layout *
+ **********/
+
+section {
+	clear: both;
+}
+
+section h2 {
+	border-bottom: thin solid #777777;
+}
+
+details {
+	margin: 0px 0px 30px 0px;
+}
+
+details p {
+	margin: 30px 0px 0px 0px;
+}
+
+summary {
+	display: block;	
+}
+
+pre {
+	padding: 10px;
+	background: #242424;
+	margin: 0px 0px 30px 0px;
+}

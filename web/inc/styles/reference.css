@@ -1,0 +1,28 @@
+details p {
+	font-weight: normal;
+	margin: 15px 0px 0px 0px;
+}
+
+details h3 {
+	color: #ffffff;
+	background-color: #666666;
+	margin: 30px 0px 0px 0px;
+	padding: 5px;
+}
+
+details pre {
+	margin: 30px 0px 0px 0px;
+}
+
+table {
+	margin: 10px;
+}
+
+table, td, th {
+	border: thin solid #777777;
+	padding: 5px;
+}
+
+th {
+	font-weight: bold;
+}

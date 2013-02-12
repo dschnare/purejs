@@ -1,6 +1,6 @@
 # Overview
 
-Purejs is an API to help create constructors and manage their prototype chain. Purejs adheres to JavaScript's prototypal nature without introducing new ideas, allowing a greater integration with builtin constructors.
+Pure.js is an API to help create constructors and manage their prototype chain. Pure.js adheres to JavaScript's prototypal nature without introducing new ideas, allowing a greater integration with builtin constructors.
 
 
 # Installation
@@ -17,8 +17,6 @@ Or use as a dependency:
 		}
 	}
 
-If all you want is a unminified/minified version of this script and its dependencies go to the download section.
-
 
 # Support
 
@@ -32,15 +30,28 @@ If you want to run the tests then you will need to do the following:
 
 	cd purejs
 	npm install
-	npm run-script build-test
-
-Then open `test/index.html` in a web browser. This web page uses QUnit to run several unit tests.
-
-**WARNING:** Do not run `npm install` with the `--dev` option on. This will result in an infinite dependency cycle. The cycle exists somewhere in the hierarchy, in some third-party module and I haven't been able to track it down to tell the author(s). Only run `npm install` with no arguments in the `purejs` module directory.
-
+	make test
 
 # API
 
-If not loaded using a module framework then this module exports `PURE` in the global namespace.
+If not loaded using a module framework then this module exports `Pure` in the global namespace.
 
 See [purejs.org](http://www.purejs.org) for the API reference and more info.
+
+# Changelog
+
+**3.0.0**
+
+- Remove dependency on `xport` since it's deprecated.
+- Clean up the dev dependencies, making it much easier to test.
+- Create make files for minifying and testing.
+- Change the exported name in browsers to `Pure` instead of `PURE`.
+- isArray() no longer tests for Array-like objects. Objects are only considered an Array if they have Array in their prototype chain.
+- isObject() now uses the following test: `o === Object(o)`.
+- add isPrimitive() to test for 'string', 'number' and 'boolean'.
+- add create() to create new objects from existing ones.
+- remove the getName() method on constructors created via Pure.constructor.create().
+- In a previous version the name argument was not being used, now it's being used by overriding the created constructor's toString() method.
+- The name argument no longer defaults to `UnnamedConstructor`.
+- If no name argument is given then the created constructor's toString() method is not overridden.
+- Change the unit tests to use Jasmine.

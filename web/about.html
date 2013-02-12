@@ -1,0 +1,88 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>purejs - effortless. javascript. - about</title>
+        <meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="inc/styles/reset.css" />
+		<link rel="stylesheet" type="text/css" href="inc/styles/common.css" />
+		<link rel="stylesheet" type="text/css" href="inc/styles/home.css" />
+		<link rel="stylesheet" type="text/css" href="inc/styles/about.css" />
+		<!--[if lte IE 8]>
+		<script type="text/javascript" src="inc/scripts/html5.js"></script>
+		<![endif]-->
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-27436694-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
+    </head>
+
+    <body>
+		<!--[if lt IE 7]> <div style='clear: both; height: 59px; padding: 0; position: relative;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." /></a></div> <![endif]-->
+
+		<div class="header-backing"></div>
+		<a href="https://github.com/dschnare/purejs" title="Fork me on Github" class="fork-me" onclick="_gaq.push(['_trackEvent', 'Actions', 'Fork', 'Purejs API on Github']);"></a>
+
+		<div class="main">
+			<header>
+				<div class="logo">
+					<a href="index.html"><h1>{<span>pure</span>js}</h1></a>
+					<h2>effortless. javascript.</h2>
+				</div>
+				<h3>The missing API for Javascript.</h3>
+			</header>
+
+			<nav>
+				<ul>
+					<li><a href="index.html" title="home">home</a></li>
+					<li><a href="reference.html" title="reference">reference</a></li>
+					<li><a href="https://github.com/dschnare/purejs/zipball/master" title="download as zip" onclick="_gaq.push(['_trackEvent', 'Actions', 'Download', 'Purejs API']);">download</a></li>
+					<li ><a href="https://twitter.com/#!/search/realtime/%23purejsapi" title="Follow the purejs conversation on Twitter" onclick="_gaq.push(['_trackEvent', 'Actions', 'Follow', 'Twitter #purejsapi']);">#purejsapi</a></li>
+					<li class="last"><a href="about.html" title="about">about</a></li>
+				</ul>
+			</nav>
+
+			<section>
+				<h2>{modular design}</h2>
+				<details open="open">
+					<summary>Purejs supports modular driven design.</summary>
+
+					<p>You can use Purejs as an <a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD</a> module or a <a href="http://nodejs.org/docs/v0.6.5/api/modules.html">Nodejs</a>/<a href="http://wiki.commonjs.org/wiki/Modules/1.1">CommonJS</a> module. Of course you can also use it as a typical browser script that exports a global namespace by the name of 'pure'.</p>
+				</details>
+
+				<h2>{origins}</h2>
+				<details open="open">
+					<summary>Purejs started out as an API to help create constructors and manage their prototype chain.</summary>
+
+					<p>It never felt right trying to graft a classical design pattern on a prototypal language, so Purejs started out as an API to help create constructors and manage their prototype chain. Unlike <a href="http://code.google.com/p/base2/source/browse/trunk/src/base2/Base.js">Base.js'</a>, <a href="http://www.prototypejs.org/learn/class-inheritance">Prototype.js'</a> and <a href="http://ejohn.org/blog/simple-javascript-inheritance/">John Resig's</a> classical approaches, Purejs adheres to the prototypal nature of the language without introducing new ideas, allowing a greater integration with builtin constructors.</p>
+				</details>
+
+				<h2>{goals}</h2>
+				<details open="open">
+					<summary>Purejs is driven by goals oriented to the language and future developers.</summary>
+
+					<p>
+						<ol>
+							<li>Help developers to think in terms of prototypes</li>
+							<li>Provide a useable interface to work with Javascript's prototype system without introducing classical ideas</li>
+							<li>Must work with both the constructor and functional design patterns</li>
+							<li>Must maintain prototype chain and constructor history</li>
+							<li>Must not add any overhead or use ill advised techniques</li>
+							<li>Minimal, comprehensible syntax</li>
+						</ol>
+					</p>
+				</details>
+			</section>
+
+			<footer>
+				<strong>Author:</strong> Darren Schnare | <strong>License:</strong> <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a>
+			</footer>
+		</div>
+    </body>
+</html>

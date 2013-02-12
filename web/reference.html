@@ -1,0 +1,217 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>purejs - effortless. javascript. - reference</title>
+        <meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="inc/styles/reset.css" />
+		<link rel="stylesheet" type="text/css" href="inc/styles/common.css" />
+		<link rel="stylesheet" type="text/css" href="inc/styles/home.css" />
+		<link rel="stylesheet" type="text/css" href="inc/styles/reference.css" />
+		<!--[if lte IE 8]>
+		<script type="text/javascript" src="inc/scripts/html5.js"></script>
+		<![endif]-->
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-27436694-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
+    </head>
+
+    <body>
+		<!--[if lt IE 7]> <div style='clear: both; height: 59px; padding: 0; position: relative;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." /></a></div> <![endif]-->
+
+		<div class="header-backing"></div>
+		<a href="https://github.com/dschnare/purejs" title="Fork me on Github" class="fork-me" onclick="_gaq.push(['_trackEvent', 'Actions', 'Fork', 'Purejs API on Github']);"></a>
+
+		<div class="main">
+			<header>
+				<div class="logo">
+					<a href="index.html"><h1>{<span>pure</span>js}</h1></a>
+					<h2>effortless. javascript.</h2>
+				</div>
+				<h3>The missing API for Javascript.</h3>
+			</header>
+
+			<nav>
+				<ul>
+					<li><a href="index.html" title="home">home</a></li>
+					<li><a href="reference.html" title="reference">reference</a></li>
+					<li><a href="https://github.com/dschnare/purejs/zipball/master" title="download as zip" onclick="_gaq.push(['_trackEvent', 'Actions', 'Download', 'Purejs API']);">download</a></li>
+					<li ><a href="https://twitter.com/#!/search/realtime/%23purejsapi" title="Follow the purejs conversation on Twitter" onclick="_gaq.push(['_trackEvent', 'Actions', 'Follow', 'Twitter #purejsapi']);">#purejsapi</a></li>
+					<li class="last"><a href="about.html" title="about">about</a></li>
+				</ul>
+			</nav>
+
+			<section>
+				<h2>{PURE.constructor.create}</h2>
+				<details open="open">
+					<summary>Creates constructors with an optional base prototype.</summary>
+
+					<h3>create()</h3>
+					<p>Creates a constructor with no prototype members.</p>
+
+					<h3>create(name)</h3>
+					<ul>
+						<li><strong>name</strong> - The name of the constructor to trace when printing. Useful when debugging.</li>
+					</ul>
+					<p>Creates a named constructor with no prototype members.</p>
+
+					<h3>create(members)</h3>
+					<ul>
+						<li><strong>members</strong> - The object whose own properties will be defined on the constructor's prototype.</li>
+					</ul>
+					<p>Creates a constructor with protoype members equal to the properties of 'members'.</p>
+
+					<h3>create(members, name)</h3>
+					<ul>
+						<li><strong>members</strong> - The object whose own properties will be defined on the constructor's prototype.</li>
+						<li><strong>name</strong> - The name of the constructor to trace when printing. Useful when debugging.</li>
+					</ul>
+					<p>Creates a named constructor with protoype members equal to the properties of 'members'.</p>
+
+					<h3>create(base, members)</h3>
+					<ul>
+						<li><strong>base</strong> - The object that will be used as the base prototype chain for the constructor. If 'base' is a constructor then its prototype will be used.</li>
+						<li><strong>members</strong> - The object whose own properties will be defined on the constructor's prototype.</li>
+					</ul>
+					<p>Creates a constructor with a prototype chain equal to 'base' and protoype members equal to the properties of 'members'.</p>
+
+					<h3>create(base, members, name)</h3>
+					<ul>
+						<li><strong>base</strong> - The object that will be used as the base prototype chain for the constructor. If 'base' is a constructor then its prototype will be used.</li>
+						<li><strong>members</strong> - The object whose own properties will be defined on the constructor's prototype.</li>
+						<li><strong>name</strong> - The name of the constructor to trace when printing. Useful when debugging.</li>
+					</ul>
+					<p>Creates a named constructor with a prototype chain equal to 'base' and protoype members equal to the properties of 'members'.</p>
+				</details>
+
+				<h2>{PURE.create}</h2>
+				<details>
+					<summary>Creates a new object with the specified object as its prototype.</summary>
+
+					<h3>create(o)</h3>
+					<ul>
+						<li><strong>o</strong> - The object to have the new object's prototype based off of.</li>
+					</ul>
+					<p>Creates a new object with the specified object as its prototype. If the object passed in is a primitive then it is wrapped in an object using its constructor so that the primitive becomes an object instance.</p>
+				</details>
+
+				<h2>{PURE.adheresTo}</h2>
+				<details>
+				<summary>Determines if an object adheres to a specified interface or interface specification.</summary>
+
+				<h3>adheresTo(o, interfce)</h3>
+				<ul>
+					<li><strong>o</strong> - The object to test.</li>
+					<li><strong>interfce</strong> - An object whose interface will be used for testing or an interface spcification.</li>
+				</ul>
+				<p>Determines if an object adheres to a specified interface or interface specification. An interface specification is
+				an object whose property names designate the interface and the property values the type expected for the property. The
+				'any type' specificier '*' can be used to designate that the property must exist but can be any type (except undefined). The PURE.typeOf() function is used to test property types.</p>
+			</details>
+
+			<h2>{PURE.mixin}</h2>
+			<details>
+				<summary>Copies all own properties from object(s) into an existing object.</summary>
+				Properties with the same name will be overwritten.
+
+				<h3>mixin(o, ...)</h3>
+				<ul>
+					<li><strong>o</strong> - The object to have properties copied into. If 'o' is not a valid object then an error will be thrown.</li>
+					<li><strong>...</strong> - A list of objects whose properties will be copied into 'o'. If an invalid object is encountered it will be skipped.</li>
+				</ul>
+				<p>Copies all own properties from the list of objects into the specified object.</p>
+			</details>
+
+			<h2>{PURE.typeOf}</h2>
+			<details>
+				<summary>Retrieves the true type of an object.</summary>
+
+				<h3>typeOf(o)</h3>
+				<ul>
+					<li><strong>o</strong> - The object whose type will be retrieved.</li>
+				</ul>
+				<p>Retrieves the true type of a specified object.</p>
+				<table>
+					<tr><th>Object Type</th><th>Return Value</th></tr>
+					<tr><td>object</td><td>'object'</td></tr>
+					<tr><td>array</td><td>'array'</td></tr>
+					<tr><td>string</td><td>'string'</td></tr>
+					<tr><td>number</td><td>'number'</td></tr>
+					<tr><td>boolean</td><td>'boolean'</td></tr>
+					<tr><td>function</td><td>'function'</td></tr>
+					<tr><td>undefined</td><td>'undefined'</td></tr>
+					<tr><td>null</td><td>'null'</td></tr>
+				</table>
+			</details>
+
+			<h2>{PURE.is____}</h2>
+			<details>
+				<summary>Convenient and intelligent type testing functions.</summary>
+				<h3>isString(o)</h3>
+				<ul>
+					<li><strong>o</strong> - The object to test.</li>
+				</ul>
+				<p>Determines if the specified object is a string literal or is an instance of String.</p>
+
+				<h3>isBoolean(o)</h3>
+				<ul>
+					<li><strong>o</strong> - The object to test.</li>
+				</ul>
+				<p>Determines if the specified object is a boolean literal or is an instance of Boolean.</p>
+
+				<h3>isNumber(o)</h3>
+				<ul>
+					<li><strong>o</strong> - The object to test.</li>
+				</ul>
+				<p>Determines if the specified object is a number literal or is an instance of Number.</p>
+
+				<h3>isPrimitive(o)</h3>
+				<ul>
+					<li><strong>o</strong> - The object to test.</li>
+				</ul>
+				<p>Determines if the specified object is a string, boolean or number literal.</p>
+
+				<h3>isFunction(o)</h3>
+				<ul>
+					<li><strong>o</strong> - The object to test.</li>
+				</ul>
+				<p>Determines if the specified object is a function.</p>
+
+				<h3>isArray(o)</h3>
+				<ul>
+					<li><strong>o</strong> - The object to test.</li>
+				</ul>
+				<p>Determines if the specified object is an array literal an instance of Array.</p>
+
+				<h3>isObject(o)</h3>
+				<ul>
+					<li><strong>o</strong> - The object to test.</li>
+				</ul>
+				<p>Determines if the specified object is an object.</p>
+
+				<h3>isDefined(o)</h3>
+				<ul>
+					<li><strong>o</strong> - The object to test.</li>
+				</ul>
+				<p>Determines if the specified object is not null and not undefined.</p>
+
+				<h3>isUndefined(o)</pre></h3>
+				<ul>
+					<li><strong>o</strong> - The object to test.</li>
+				</ul>
+				<p>Determines if the specified object is either null or undefined.</p>
+			</section>
+
+			<footer>
+				<strong>Author:</strong> Darren Schnare | <strong>License:</strong> <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a>
+			</footer>
+		</div>
+    </body>
+</html>
