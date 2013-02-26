@@ -171,6 +171,15 @@
 						} else {
 							o.init();
 						}
+					// The 'base' argument is a constructor and there is no
+					// 'init' method so we call the base constructor passing
+					// our instance in as the 'this' object.
+					} else if (typeof base === 'function') {
+						if (arguments.length) {
+							base.apply(o, arguments);
+						} else {
+							base.call(o);
+						}
 					}
 
 					return o;
