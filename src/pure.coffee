@@ -7,7 +7,7 @@ create = (o) ->
   o = new o.constructor o if isPrimitive o
   class F
     constructor: -> @constructor = F
-  F.prototype = o
+  F:: = o
   return new F
 
 isString = (o) -> typeof o is 'string' or o instanceof String
@@ -28,21 +28,19 @@ typeOf = (o) ->
 mixin = (o, objs...) ->
   throw new Error('Expected at least one object as an argument.') if not o?
   for obj in objs
-    if isDefined obj
-      (o[k] = obj[k] if obj.hasOwnProperty k) for k,v of obj
+    (o[k] = obj[k] if isDefined obj) for own k,v of obj
   return o
 
 adheresTo = (o, interfce) ->
   if (isObject(o) or isFunction(o) or isArray(o)) and
       (isObject(interfce) or isFunction(interfce) or isArray(interfce))
-    for k,v of interfce
-      if interfce.hasOwnProperty k
-        # Property can be any type, but must exist.
-        if interfce[k] is '*'
-          return false if o[k] is undefined
-        else
-          return false unless typeOf(o[k]) is typeOf(interfce[k]) or
-            typeOf(o[k]) is interfce[k]
+    for own k,v of interfce
+      # Property can be any type, but must exist.
+      if interfce[k] is '*'
+        return false if o[k] is undefined
+      else
+        return false unless typeOf(o[k]) is typeOf(interfce[k]) or
+          typeOf(o[k]) is interfce[k]
     return true
   return typeOf(o) is typeOf(interfce)
 

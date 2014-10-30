@@ -1,0 +1,33 @@
+{
+  "name": "purejs",
+  "version": "4.0.0",
+  "homepage": "http://www.purejs.org",
+  "authors": [
+    "Darren Schnare <darren@darrenschnare.com>"
+  ],
+  "description": "Purejs is an API to help create constructors and manage their prototype chain.",
+  "main": "dist/pure.max.js",
+  "keywords": [
+    "javascript",
+    "constructor",
+    "inheritence",
+    "mixin",
+    "pure",
+    "type",
+    "testing"
+  ],
+  "dependencies": {
+    "constructor-kit": ">=0.0.4"
+  },
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "spec",
+    "web",
+    ".gitignore",
+    "pure.js"
+  ]
+}
