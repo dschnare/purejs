@@ -5,24 +5,17 @@ Pure.js is an API to help create constructors and manage their prototype chain. 
 
 # Installation
 
-Install locally:
+	npm install purejs
 
-	npm install git://github.com/dschnare/purejs.git
+Or using bower
 
-Or use as a dependency:
-
-	{
-		"dependencies": {
-			"purejs": "git://github.com/dschnare/purejs.git"
-		}
-	}
+  bower install purejs
 
 
 # Support
 
-Supports all JavaScript 1.3 and above environments.
-
-Supports being loaded as an AMD or Node/CommonJS module.
+Supports being loaded as an AMD or Node/CommonJS module. Uses the UMD module definition.
+If no module loading framework is present then the global `Pure` is exposed.
 
 # Testing
 
@@ -33,8 +26,6 @@ If you want to run the tests then you will need to do the following:
 	make test
 
 # API
-
-If not loaded using a module framework then this module exports `Pure` in the global namespace.
 
 See [purejs.org](http://www.purejs.org) for the API reference and more info.
 
