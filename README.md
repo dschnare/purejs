@@ -47,7 +47,7 @@ See [purejs.org](http://www.purejs.org) for the API reference and more info.
 - Revamp the build process to use browserify and minify
 - Support UMD module definition
 - Deprecate the following features on constructors: copy constructors, init(), calling constructors without `new`, setting a name on a constructor
-
+- Register as a bower component and NPM module
 
 **3.0.0**
 
