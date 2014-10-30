@@ -204,149 +204,57 @@ describe('Pure', function () {
 	///////////////////////
 
 	describe('constructor#create', function () {
-		it('should create an empty constructor', function () {
-			var Ctr = Pure.constructor.create(),
-				ctr = Ctr,
-				o = new Ctr(),
-				j = ctr();
-
-			expect(typeof Ctr).toBe('function');
-			expect(o instanceof Ctr).toBe(true);
-			expect(j instanceof Ctr).toBe(true);
-
-			if (typeof Object.prototype.isPrototypeOf === 'function') {
-				expect(Ctr.prototype.isPrototypeOf(o)).toBe(true);
-				expect(Ctr.prototype.isPrototypeOf(j)).toBe(true);
-			}
-
-			if (typeof Object.getPrototypeOf === 'function') {
-				expect(Object.getPrototypeOf(o)).toBe(Ctr.prototype);
-				expect(Object.getPrototypeOf(j)).toBe(Ctr.prototype);
-			}
-		});
-
-		it('should create a named constructor', function () {
-			var Ctr = Pure.constructor.create('CTR'),
-				ctr = Ctr,
-				o = new Ctr(),
-				j = ctr();
-
-			expect(typeof Ctr).toBe('function');
-			expect(o instanceof Ctr).toBe(true);
-			expect(j instanceof Ctr).toBe(true);
-
-			if (typeof Object.prototype.isPrototypeOf === 'function') {
-				expect(Ctr.prototype.isPrototypeOf(o)).toBe(true);
-				expect(Ctr.prototype.isPrototypeOf(j)).toBe(true);
-			}
-
-			if (typeof Object.getPrototypeOf === 'function') {
-				expect(Object.getPrototypeOf(o)).toBe(Ctr.prototype);
-				expect(Object.getPrototypeOf(j)).toBe(Ctr.prototype);
-			}
-			
-			expect(Ctr.toString().indexOf('function CTR') >= 0).toBe(true);
-		});
-
-		it('should call the copy constructor if one is supplied', function () {
-			var Ctr = Pure.constructor.create({
-					copyCalled: false,
-					copy: function (other) {
-						this.copyCalled = true;
-						this.init();
-					},
-					init: function () {
-						this.initCalled = true;
-					},
-					helloWorld: function () {
-						return 'Hello World';
-					}
-				}, 'CTR'),
-				a = new Ctr(),
-				b = a.constructor(a);
-
-			expect(a).not.toBe(b);
-			expect(a.initCalled).toBe(true);
-			expect(a.copyCalled).toBe(false);
-			expect(b.initCalled).toBe(true);
-			expect(b.copyCalled).toBe(true);
-
-			expect(a instanceof Ctr).toBe(true);
-			expect(b instanceof Ctr).toBe(true);
-
-			if (typeof Object.prototype.isPrototypeOf === 'function') {
-				expect(Ctr.prototype.isPrototypeOf(a)).toBe(true);
-				expect(Ctr.prototype.isPrototypeOf(b)).toBe(true);
-			}
-
-			if (typeof Object.getPrototypeOf === 'function') {
-				expect(Object.getPrototypeOf(a)).toBe(Ctr.prototype);
-				expect(Object.getPrototypeOf(b)).toBe(Ctr.prototype);
-			}
-
-			expect(Ctr.toString().indexOf('function CTR') >= 0).toBe(true);
-		});
-
 		it('should mixin the passed in members object on the prototype', function () {
-			var initCalled = false,
-				Ctr = Pure.constructor.create({
-					init: function () {
-						initCalled = true;
-					},
+			var ctorCalled = false,
+				Ctr = Pure.constructor.create(function () {
+					ctorCalled = true;
+				}, {
 					helloWorld: function () {
 						return 'Hello World';
 					}
-				}, 'CTR'),
+				}),
 				ctr = Ctr,
-				o = new Ctr(),
-				j = ctr();
+				o = new Ctr();
 
 			expect(typeof Ctr).toBe('function');
 			expect(o instanceof Ctr).toBe(true);
-			expect(j instanceof Ctr).toBe(true);
 
 			if (typeof Object.prototype.isPrototypeOf === 'function') {
 				expect(Ctr.prototype.isPrototypeOf(o)).toBe(true);
-				expect(Ctr.prototype.isPrototypeOf(j)).toBe(true);
 			}
 
 			if (typeof Object.getPrototypeOf === 'function') {
 				expect(Object.getPrototypeOf(o)).toBe(Ctr.prototype);
-				expect(Object.getPrototypeOf(j)).toBe(Ctr.prototype);
 			}
 
-			expect(Ctr.toString().indexOf('function CTR') >= 0).toBe(true);
-			expect(initCalled).toBe(true);
+			expect(ctorCalled).toBe(true);
 			expect(o.helloWorld()).toBe('Hello World');
 			expect(Pure.adheresTo(o, Ctr.prototype)).toBe(true);
 		});
 
 		it('should mixin base members from the base prototype', function () {
-			var personInitCalled = false,
-				ninjaInitCalled = false,
-				Person = Pure.constructor.create({
-					init: function (name) {
-						this.name = name;
-						personInitCalled = true;
-					},
+			var personCtorCalled = false,
+				ninjaCtorCalled = false,
+				Person = Pure.constructor.create(function (name) {
+					this.name = name;
+					personCtorCalled = true;
+				}, {
 					getName: function () {
 						return this.name;
 					},
 					helloWorld: function () {
 						return 'Hello World';
 					}
-				}, 'Person'),
-				Ninja = Pure.constructor.create(Person, {
-					init: function (name) {
-						ninjaInitCalled = true;
-						Person.prototype.init.call(this, name);
-					},
+				}),
+				Ninja = Pure.constructor.create(function (name) {
+					ninjaCtorCalled = true;
+					Person.call(this, name);
+				}, {
 					getName: function () {
 						return Person.prototype.getName.call(this) + ' is a Ninja!';
 					}
-				}, 'Ninja'),
-				nja = Ninja,
-				ninja = nja('Darren');
+				}, Person),
+				ninja = new Ninja('Darren');
 
 			expect(ninja instanceof Ninja).toBe(true);
 			expect(ninja instanceof Person).toBe(true);
@@ -362,8 +270,8 @@ describe('Pure', function () {
 			}
 
 			expect(ninja.getName()).toBe('Darren is a Ninja!');
-			expect(personInitCalled).toBe(true);
-			expect(ninjaInitCalled).toBe(true);
+			expect(personCtorCalled).toBe(true);
+			expect(ninjaCtorCalled).toBe(true);
 			expect(ninja.helloWorld()).toBe('Hello World');
 			expect(ninja.helloWorld()).toBe('Hello World');
 			expect(Pure.adheresTo(ninja, Ninja.prototype)).toBe(true);

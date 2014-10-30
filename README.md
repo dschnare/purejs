@@ -40,6 +40,15 @@ See [purejs.org](http://www.purejs.org) for the API reference and more info.
 
 # Changelog
 
+**4.0.0**
+
+- Port source code to be CoffeeScript based
+- Replace constructor.create with constructor-kit function; API is identical to constructor-kit
+- Revamp the build process to use browserify and minify
+- Support UMD module definition
+- Deprecate the following features on constructors: copy constructors, init(), calling constructors without `new`, setting a name on a constructor
+
+
 **3.0.0**
 
 - Remove dependency on `xport` since it's deprecated.

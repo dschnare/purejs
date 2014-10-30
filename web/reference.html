@@ -53,42 +53,26 @@
 				<details open="open">
 					<summary>Creates constructors with an optional base prototype.</summary>
 
-					<h3>create()</h3>
+					<h3>create(ctor)</h3>
+					<ul>
+						<li><strong>ctor</strong> - The constructor being created.</li>
+					</ul>
 					<p>Creates a constructor with no prototype members.</p>
 
-					<h3>create(name)</h3>
+					<h3>create(ctor, members)</h3>
 					<ul>
-						<li><strong>name</strong> - The name of the constructor to trace when printing. Useful when debugging.</li>
-					</ul>
-					<p>Creates a named constructor with no prototype members.</p>
-
-					<h3>create(members)</h3>
-					<ul>
+						<li><strong>ctor</strong> - The constructor being created.</li>
 						<li><strong>members</strong> - The object whose own properties will be defined on the constructor's prototype.</li>
 					</ul>
-					<p>Creates a constructor with protoype members equal to the properties of 'members'.</p>
+					<p>Creates a constructor with protoype members from 'members'.</p>
 
-					<h3>create(members, name)</h3>
+					<h3>create(ctor, members, base)</h3>
 					<ul>
+						<li><strong>ctor</strong> - The constructor being created.</li>
 						<li><strong>members</strong> - The object whose own properties will be defined on the constructor's prototype.</li>
-						<li><strong>name</strong> - The name of the constructor to trace when printing. Useful when debugging.</li>
-					</ul>
-					<p>Creates a named constructor with protoype members equal to the properties of 'members'.</p>
-
-					<h3>create(base, members)</h3>
-					<ul>
 						<li><strong>base</strong> - The object that will be used as the base prototype chain for the constructor. If 'base' is a constructor then its prototype will be used.</li>
-						<li><strong>members</strong> - The object whose own properties will be defined on the constructor's prototype.</li>
 					</ul>
-					<p>Creates a constructor with a prototype chain equal to 'base' and protoype members equal to the properties of 'members'.</p>
-
-					<h3>create(base, members, name)</h3>
-					<ul>
-						<li><strong>base</strong> - The object that will be used as the base prototype chain for the constructor. If 'base' is a constructor then its prototype will be used.</li>
-						<li><strong>members</strong> - The object whose own properties will be defined on the constructor's prototype.</li>
-						<li><strong>name</strong> - The name of the constructor to trace when printing. Useful when debugging.</li>
-					</ul>
-					<p>Creates a named constructor with a prototype chain equal to 'base' and protoype members equal to the properties of 'members'.</p>
+					<p>Creates a constructor with a prototype chain containing 'base' and protoype members from 'members'.</p>
 				</details>
 
 				<h2>{Pure.create}</h2>

@@ -1,19 +1,40 @@
 {
-	"name": "purejs",
-	"version": "3.0.1",
-	"description": "Purejs is an API to help create constructors and manage their prototype chain.",
-	"keywords": ["javascript", "constructor", "inheritence", "mixin", "pure", "type", "testing"],
-	"author": {
-		"name": "Darren Schnare",
-		"email": "schnare.d@gmail.com"
-	},
-	"repository": {
-		"type": "git",
-		"url": "http://github.com/dschnare/purejs.git"
-	},
-	"main": "pure.js",	
-	"devDependencies": {
-		"jasmine-node": "*",
-		"uglify-js": "*"
-	}	
+  "name": "purejs",
+  "version": "4.0.0",
+  "description": "Purejs is an API to help create constructors and manage their prototype chain.",
+  "keywords": [
+    "javascript",
+    "constructor",
+    "inheritence",
+    "mixin",
+    "pure",
+    "type",
+    "testing"
+  ],
+  "author": {
+    "name": "Darren Schnare",
+    "email": "schnare.d@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/dschnare/purejs.git"
+  },
+  "scripts": {
+    "build": "npm run mkdist && npm run coffee && npm run browserify && npm run minify",
+    "mkdist": "node -e \"with(require('fs')) { if (!existsSync('dist')) mkdirSync('dist') }\"",
+    "coffee": "node_modules\\.bin\\coffee -cb -o ./ src/",
+    "browserify": "node_modules\\.bin\\browserify pure.js --debug -s Pure -o dist/pure.max.js",
+    "minify": "node_modules\\.bin\\minify dist/pure.max.js > dist/pure.min.js",
+    "test": "node_modules\\.bin\\jasmine-node spec/"
+  },
+  "main": "pure.js",
+  "devDependencies": {
+    "jasmine-node": "^1.14.5",
+    "browserify": "^6.2.0",
+    "coffee-script": "^1.8.0",
+    "minify": "^1.0.7"
+  },
+  "dependencies": {
+    "constructor-kit": "0.0.4"
+  }
 }

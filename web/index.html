@@ -53,60 +53,41 @@
 					<summary>Reliably handle constructors and the prototype.</summary>
 
 					<p>Create a constructor ...</p>
-<pre>var MyConstructor = Pure.constructor.create({
+<pre>var MyConstructor = Pure.constructor.create(function () {
+      // This is the constructor.
+      // Here is where we initialize the instance.
+      // All instance-level members are defined here.
+    },{
     // Here is where we define prototype-level members.
-    // If the instance has an init() method it is called immediately after the
-    // constructor with the same arguments passed to the constructor.
-    init: function() {
-        // Here is where we initialize the instance.
-        // All instance-level members are defined here.
-    }
 });</pre>
 
 					<p>Create a constructor inheriting a prototype ...</p>
-<pre>var MyOtherConstructor = Pure.constructor.create(MyConstructor.prototype, {
-    init: function() {
-        // Call the base version of our init() method.
-        MyConstructor.prototype.init.call(this);
-    }
-});</pre>
+<pre>var MyOtherConstructor = Pure.constructor.create(function () {
+      // Call the base constructor.
+      MyConstructor.call(this);
+    }, {
+    // Empty prototype members.
+}, MyConstructor.prototype);</pre>
 
 					<p>Create a constructor inheriting a prototype, but cache the base prototype ...</p>
 <pre>var MyOtherConstructor2 = (function(base) {
-    return Pure.constructor.create(base, {
-        init: function() {
-            // Call the base version of our init() method.
-            base.init.call(this);
-        }
-    });
-}(MyConstructor.prototype));</pre>
+    return Pure.constructor.create(function () {
+        // Call the base constructor.
+        base.call(this);
+      }, {
+      // Empty prototype members.
+    }, base.prototype);
+}(MyConstructor));</pre>
 
-					<p>Use constructors created with Purejs with or without the 'new' keyword ...</p>
-<pre>var mc = MyConstructor();
-var mc2 = new MyConstructor();</pre>
-
-					<p>Create a constructor that supports 'copy constructor' calls similar to C++ ...</p>
-					<pre>var C = Pure.constructor.create({
-    init: function(name) {
-        // Initialize the instance data.
-        this.name = name;
-    },
-    // Define a copy operator to be used by  a 'copy constructor' call on our constructor.
-    copy: function(other) {
-        // Copy the 'other' reference into ourselves,
-        // but first a sanity/safety check.
-        if (other instanceof C) {
-            this.name = other.name;
-        }
-    }
-});
-
-var c = C('ObjectC');
-// Make a new instance of 'C' and copy 'c' into the new instance.
-// NOTE: If a copy operator does not exist on instances of 'C'
-// or the single argument passed to the copy constructor is not an
-// instance of 'C' then this will just be a normal constructor call.
-var cc = C(c);</pre>
+          <p>Create a constructor inheriting a constructor's prototype ...</p>
+<pre>var MyOtherConstructor3 = (function(base) {
+    return Pure.constructor.create(function () {
+        // Call the base constructor.
+        base.call(this);
+      }, {
+      // Empty prototype members.
+    }, base); // You can pass a constructor function directly not just objects
+}(MyConstructor));</pre>
 				</details>
 
 				<h2>{interface testing}</h2>
