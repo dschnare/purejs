@@ -1,6 +1,6 @@
 {
   "name": "purejs",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Purejs is an API to help create constructors and manage their prototype chain.",
   "keywords": [
     "javascript",
@@ -23,7 +23,7 @@
     "build": "npm run mkdist && npm run coffee && npm run browserify && npm run minify",
     "mkdist": "node -e \"with(require('fs')) { if (!existsSync('dist')) mkdirSync('dist') }\"",
     "coffee": "node_modules\\.bin\\coffee -cb -o ./ src/",
-    "browserify": "node_modules\\.bin\\browserify pure.js --debug -s Pure -o dist/pure.max.js",
+    "browserify": "node_modules\\.bin\\browserify pure.js --debug --ignore constructor-kit -s Pure -o dist/pure.max.js",
     "minify": "node_modules\\.bin\\minify dist/pure.max.js > dist/pure.min.js",
     "test": "node_modules\\.bin\\jasmine-node spec/"
   },
