@@ -5,11 +5,14 @@ Pure.js is an API to help create constructors and manage their prototype chain. 
 
 # Installation
 
-	npm install purejs
+    npm install purejs
 
 Or using bower
 
-  bower install purejs
+    bower install purejs
+
+If using bower you'll have to include the constructor-kit bower component first on the page since constructor-kit is a dependency.
+
 
 
 # Support
