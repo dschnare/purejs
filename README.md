@@ -41,6 +41,9 @@ See [purejs.org](http://www.purejs.org) for the API reference and more info.
 
 # Changelog
 
+**4.0.23**
+- Update constructor-kit to version 0.1.0
+
 **4.0.2**
 - Refactor the build process to use Gulp
 - Added Coffeelint to the build process

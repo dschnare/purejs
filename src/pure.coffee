@@ -60,4 +60,4 @@ module.exports =
   mixin: mixin
   adheresTo: adheresTo
   constructor:
-    create: ck.ck
+    create: ck
