@@ -17,10 +17,12 @@ To use the component you will have to bundle the component using a tool like [Br
 For example:
 
 *./public/modules/app.js*:
+
     var pure = require('purejs')
     console.log(typeof pure)
 
 *command line*:
+
     browserify -t debowerify ./public/modules/app.js > ./public/app.max.js
 
 
