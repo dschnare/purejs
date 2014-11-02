@@ -11,14 +11,19 @@ Or using bower
 
     bower install purejs
 
-If using bower you'll have to include the constructor-kit bower component first on the page since constructor-kit is a dependency.
+## Bower
+
+To use the component you will have to bundle the component using a tool like [Browserify](http://browserify.org).
+For example:
+
+*./public/modules/app.js*:
+    var pure = require('purejs')
+    console.log(typeof pure)
+
+*command line*:
+    browserify -t debowerify ./public/modules/app.js > ./public/app.max.js
 
 
-
-# Support
-
-Supports being loaded as an AMD or Node/CommonJS module. Uses the UMD module definition.
-If no module loading framework is present then the global `Pure` is exposed.
 
 # Testing
 
@@ -26,13 +31,19 @@ If you want to run the tests then you will need to do the following:
 
 	cd purejs
 	npm install
-	make test
+	npm test
 
 # API
 
 See [purejs.org](http://www.purejs.org) for the API reference and more info.
 
 # Changelog
+
+**4.0.2**
+- Refactor the build process to use Gulp
+- Added Coffeelint to the build process
+- Set main file in bower.json to be NPM module pure.js
+- Require bower consumers to use a tool like Browserify to bundle the module
 
 **4.0.0**
 

@@ -17,10 +17,11 @@ isFunction = (o) -> typeof o is 'function'
 isPrimitive = (o) -> /string|number|boolean/.test typeof o
 isDefined = (o) -> o isnt null and o isnt undefined
 isUndefined = (o) -> o is null or o is undefined
-isArray = (o) -> o instanceof Array or Object.prototype.toString.call(o) is '[object Array]'
+isArray = (o) ->
+  o instanceof Array or Object.prototype.toString.call(o) is '[object Array]'
 isObject = (o) -> o is Object(o) and typeof o isnt 'function'
 
-typeOf = (o) -> 
+typeOf = (o) ->
   return 'null' if o is null
   return 'array' if isArray o
   return typeof o
@@ -44,7 +45,7 @@ adheresTo = (o, interfce) ->
     return true
   return typeOf(o) is typeOf(interfce)
 
-module.exports = 
+module.exports =
   create: create
   isString: isString
   isBoolean: isBoolean

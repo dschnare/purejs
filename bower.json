@@ -6,7 +6,7 @@
     "Darren Schnare <darren@darrenschnare.com>"
   ],
   "description": "Purejs is an API to help create constructors and manage their prototype chain.",
-  "main": "dist/pure.max.js",
+  "main": "pure.js",
   "keywords": [
     "javascript",
     "constructor",
@@ -28,6 +28,5 @@
     "spec",
     "web",
     ".gitignore",
-    "pure.js"
   ]
 }

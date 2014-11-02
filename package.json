@@ -20,19 +20,16 @@
     "url": "http://github.com/dschnare/purejs.git"
   },
   "scripts": {
-    "build": "npm run mkdist && npm run coffee && npm run browserify && npm run minify",
-    "mkdist": "node -e \"with(require('fs')) { if (!existsSync('dist')) mkdirSync('dist') }\"",
-    "coffee": "node_modules\\.bin\\coffee -cb -o ./ src/",
-    "browserify": "node_modules\\.bin\\browserify pure.js --debug --ignore constructor-kit -s Pure -o dist/pure.max.js",
-    "minify": "node_modules\\.bin\\minify dist/pure.max.js > dist/pure.min.js",
-    "test": "node_modules\\.bin\\jasmine-node spec/"
+    "test": "./node_modules/.bin/gulp test"
   },
   "main": "pure.js",
   "devDependencies": {
-    "jasmine-node": "^1.14.5",
-    "browserify": "^6.2.0",
     "coffee-script": "^1.8.0",
-    "minify": "^1.0.7"
+    "gulp": "^3.8.9",
+    "gulp-coffee": "^2.2.0",
+    "gulp-coffeelint": "^0.4.0",
+    "gulp-jasmine": "^1.0.1",
+    "gulp-util": "^3.0.1"
   },
   "dependencies": {
     "constructor-kit": "0.0.4"
