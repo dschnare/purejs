@@ -95,11 +95,10 @@
 					<summary>Perform interface adherence tests on any object.</summary>
 
 					<p>Ensure an object has a specific interface ...</p>
-<pre>var Rect = Pure.constructor.create({
-    init: function(w, h) {
+<pre>var Rect = Pure.constructor.create(function (w, h) {
         this._width = w;
         this._height = h;
-    },
+    }, {
     width: function(value) {
         if (arguments.length === 1) this._width = value;
         return this._width;
@@ -120,9 +119,9 @@ var rect = Rect(10, 10);
 // true since all objects adhere to their own interface.
 Pure.adheresTo(r, r);
 
-// false since width and height are not functions and init is not present.
+// false since width and height are not functions.
 Pure.adheresTo(r, Rect.prototype);
-// false since width and height are not functions and init is not present
+// false since width and height are not functions
 // and _width and _height are not present.
 Pure.adheresTo(r, rect);
 
